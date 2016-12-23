@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>protobuf.internal._parameterized</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="protobuf-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="protobuf-module.html">Package&nbsp;protobuf</a> ::
+        <a href="protobuf.internal-module.html">Package&nbsp;internal</a> ::
+        Module&nbsp;_parameterized
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="protobuf.internal._parameterized-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module _parameterized</h1><p class="nomargin-top"><span class="codelink"><a href="protobuf.internal._parameterized-pysrc.html">source&nbsp;code</a></span></p>
+<pre class="literalblock">
+Adds support for parameterized tests to Python's unittest TestCase class.
+
+A parameterized test is a method in a test case that is invoked with different
+argument tuples.
+
+A simple example:
+
+  class AdditionExample(parameterized.ParameterizedTestCase):
+    @parameterized.Parameters(
+       (1, 2, 3),
+       (4, 5, 9),
+       (1, 1, 3))
+    def testAddition(self, op1, op2, result):
+      self.assertEqual(result, op1 + op2)
+
+
+Each invocation is a separate test case and properly isolated just
+like a normal test method, with its own setUp/tearDown cycle. In the
+example above, there are three separate testcases, one of which will
+fail due to an assertion error (1 + 1 != 3).
+
+Parameters for invididual test cases can be tuples (with positional parameters)
+or dictionaries (with named parameters):
+
+  class AdditionExample(parameterized.ParameterizedTestCase):
+    @parameterized.Parameters(
+       {'op1': 1, 'op2': 2, 'result': 3},
+       {'op1': 4, 'op2': 5, 'result': 9},
+    )
+    def testAddition(self, op1, op2, result):
+      self.assertEqual(result, op1 + op2)
+
+If a parameterized test fails, the error message will show the
+original test name (which is modified internally) and the arguments
+for the specific invocation, which are part of the string returned by
+the shortDescription() method on test cases.
+
+The id method of the test, used internally by the unittest framework,
+is also modified to show the arguments. To make sure that test names
+stay the same across several invocations, object representations like
+
+  &gt;&gt;&gt; class Foo(object):
+  ...  pass
+  &gt;&gt;&gt; repr(Foo())
+  '&lt;__main__.Foo object at 0x23d8610&gt;'
+
+are turned into '&lt;__main__.Foo&gt;'. For even more descriptive names,
+especially in test logs, you can use the NamedParameters decorator. In
+this case, only tuples are supported, and the first parameters has to
+be a string (or an object that returns an apt name when converted via
+str()):
+
+  class NamedExample(parameterized.ParameterizedTestCase):
+    @parameterized.NamedParameters(
+       ('Normal', 'aa', 'aaa', True),
+       ('EmptyPrefix', '', 'abc', True),
+       ('BothEmpty', '', '', True))
+    def testStartsWith(self, prefix, string, result):
+      self.assertEqual(result, strings.startswith(prefix))
+
+Named tests also have the benefit that they can be run individually
+from the command line:
+
+  $ testmodule.py NamedExample.testStartsWithNormal
+  .
+  --------------------------------------------------------------------
+  Ran 1 test in 0.000s
+
+  OK
+
+Parameterized Classes
+=====================
+If invocation arguments are shared across test methods in a single
+ParameterizedTestCase class, instead of decorating all test methods
+individually, the class itself can be decorated:
+
+  @parameterized.Parameters(
+    (1, 2, 3)
+    (4, 5, 9))
+  class ArithmeticTest(parameterized.ParameterizedTestCase):
+    def testAdd(self, arg1, arg2, result):
+      self.assertEqual(arg1 + arg2, result)
+
+    def testSubtract(self, arg2, arg2, result):
+      self.assertEqual(result - arg1, arg2)
+
+Inputs from Iterables
+=====================
+If parameters should be shared across several test cases, or are dynamically
+created from other sources, a single non-tuple iterable can be passed into
+the decorator. This iterable will be used to obtain the test cases:
+
+  class AdditionExample(parameterized.ParameterizedTestCase):
+    @parameterized.Parameters(
+      c.op1, c.op2, c.result for c in testcases
+    )
+    def testAddition(self, op1, op2, result):
+      self.assertEqual(result, op1 + op2)
+
+
+Single-Argument Test Methods
+============================
+If a test method takes only one argument, the single argument does not need to
+be wrapped into a tuple:
+
+  class NegativeNumberExample(parameterized.ParameterizedTestCase):
+    @parameterized.Parameters(
+       -1, -3, -4, -5
+    )
+    def testIsNegative(self, arg):
+      self.assertTrue(IsNegative(arg))
+
+</pre>
+
+<hr />
+<div class="fields">      <p><strong>Author:</strong>
+        tmarek@google.com (Torsten Marek)
+      </p>
+</div><!-- ==================== CLASSES ==================== -->
+<a name="section-Classes"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Classes</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Classes"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="protobuf.internal._parameterized._ParameterizedTestIter-class.html" class="summary-name" onclick="show_private();">_ParameterizedTestIter</a><br />
+      Callable and iterable class for producing new test cases.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="protobuf.internal._parameterized.TestGeneratorMetaclass-class.html" class="summary-name">TestGeneratorMetaclass</a><br />
+      Metaclass for test cases with test generators.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="protobuf.internal._parameterized.ParameterizedTestCase-class.html" class="summary-name">ParameterizedTestCase</a><br />
+      Base class for test cases using the Parameters decorator.
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_CleanRepr"></a><span class="summary-sig-name">_CleanRepr</span>(<span class="summary-sig-arg">obj</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal._parameterized-pysrc.html#_CleanRepr">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_StrClass"></a><span class="summary-sig-name">_StrClass</span>(<span class="summary-sig-arg">cls</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal._parameterized-pysrc.html#_StrClass">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_NonStringIterable"></a><span class="summary-sig-name">_NonStringIterable</span>(<span class="summary-sig-arg">obj</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal._parameterized-pysrc.html#_NonStringIterable">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_FormatParameterList"></a><span class="summary-sig-name">_FormatParameterList</span>(<span class="summary-sig-arg">testcase_params</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal._parameterized-pysrc.html#_FormatParameterList">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_IsSingletonList"></a><span class="summary-sig-name">_IsSingletonList</span>(<span class="summary-sig-arg">testcases</span>)</span><br />
+      True iff testcases contains only a single non-tuple element.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal._parameterized-pysrc.html#_IsSingletonList">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_ModifyClass"></a><span class="summary-sig-name">_ModifyClass</span>(<span class="summary-sig-arg">class_object</span>,
+        <span class="summary-sig-arg">testcases</span>,
+        <span class="summary-sig-arg">naming_type</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal._parameterized-pysrc.html#_ModifyClass">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal._parameterized-module.html#_ParameterDecorator" class="summary-sig-name" onclick="show_private();">_ParameterDecorator</a>(<span class="summary-sig-arg">naming_type</span>,
+        <span class="summary-sig-arg">testcases</span>)</span><br />
+      Implementation of the parameterization decorators.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal._parameterized-pysrc.html#_ParameterDecorator">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal._parameterized-module.html#Parameters" class="summary-sig-name">Parameters</a>(<span class="summary-sig-arg">*testcases</span>)</span><br />
+      A decorator for creating parameterized tests.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal._parameterized-pysrc.html#Parameters">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal._parameterized-module.html#NamedParameters" class="summary-sig-name">NamedParameters</a>(<span class="summary-sig-arg">*testcases</span>)</span><br />
+      A decorator for creating parameterized tests.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal._parameterized-pysrc.html#NamedParameters">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal._parameterized-module.html#_UpdateClassDictForParamTestCase" class="summary-sig-name" onclick="show_private();">_UpdateClassDictForParamTestCase</a>(<span class="summary-sig-arg">dct</span>,
+        <span class="summary-sig-arg">id_suffix</span>,
+        <span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">iterator</span>)</span><br />
+      Adds individual test cases to a dictionary.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal._parameterized-pysrc.html#_UpdateClassDictForParamTestCase">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal._parameterized-module.html#CoopParameterizedTestCase" class="summary-sig-name">CoopParameterizedTestCase</a>(<span class="summary-sig-arg">other_base_class</span>)</span><br />
+      Returns a new base class with a cooperative metaclass base.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal._parameterized-pysrc.html#CoopParameterizedTestCase">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="protobuf.internal._parameterized-module.html#ADDR_RE" class="summary-name">ADDR_RE</a> = <code title="re.compile(r'&lt;([a-zA-Z0-9_-\.]+) object at 0x[a-fA-F0-9]+&gt;')">re.compile(r'&lt;<code class="re-group">(</code><code class="re-group">[</code>a<code class="re-op">-</code>zA<code class="re-op">-</code>Z0<code class="re-op">-</code>9_-\.<code class="re-group">]</code><code class="re-op">+</code><code class="re-group">)</code> object at 0x<code class="re-group">[</code>a<code class="re-op">-</code>fA<code class="re-op">-</code>F<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_SEPARATOR"></a><span class="summary-name">_SEPARATOR</span> = <code title="'7502f787c87a11e6bdd6c8e0eb191b99'"><code class="variable-quote">'</code><code class="variable-string">7502f787c87a11e6bdd6c8e0eb191b99</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_FIRST_ARG"></a><span class="summary-name">_FIRST_ARG</span> = <code title="object()">object()</code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_ARGUMENT_REPR"></a><span class="summary-name">_ARGUMENT_REPR</span> = <code title="object()">object()</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'protobuf.internal'"><code class="variable-quote">'</code><code class="variable-string">protobuf.internal</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="_ParameterDecorator"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_ParameterDecorator</span>(<span class="sig-arg">naming_type</span>,
+        <span class="sig-arg">testcases</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal._parameterized-pysrc.html#_ParameterDecorator">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Implementation of the parameterization decorators.
+
+Args:
+  naming_type: The naming type.
+  testcases: Testcase parameters.
+
+Returns:
+  A function for modifying the decorated object.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="Parameters"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">Parameters</span>(<span class="sig-arg">*testcases</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal._parameterized-pysrc.html#Parameters">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+A decorator for creating parameterized tests.
+
+See the module docstring for a usage example.
+Args:
+  *testcases: Parameters for the decorated method, either a single
+              iterable, or a list of tuples/dicts/objects (for tests
+              with only one argument).
+
+Returns:
+   A test generator to be handled by TestGeneratorMetaclass.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="NamedParameters"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">NamedParameters</span>(<span class="sig-arg">*testcases</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal._parameterized-pysrc.html#NamedParameters">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+A decorator for creating parameterized tests.
+
+See the module docstring for a usage example. The first element of
+each parameter tuple should be a string and will be appended to the
+name of the test method.
+
+Args:
+  *testcases: Parameters for the decorated method, either a single
+              iterable, or a list of tuples.
+
+Returns:
+   A test generator to be handled by TestGeneratorMetaclass.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_UpdateClassDictForParamTestCase"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_UpdateClassDictForParamTestCase</span>(<span class="sig-arg">dct</span>,
+        <span class="sig-arg">id_suffix</span>,
+        <span class="sig-arg">name</span>,
+        <span class="sig-arg">iterator</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal._parameterized-pysrc.html#_UpdateClassDictForParamTestCase">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Adds individual test cases to a dictionary.
+
+Args:
+  dct: The target dictionary.
+  id_suffix: The dictionary for mapping names to test IDs.
+  name: The original name of the test case.
+  iterator: The iterator generating the individual test cases.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="CoopParameterizedTestCase"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">CoopParameterizedTestCase</span>(<span class="sig-arg">other_base_class</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal._parameterized-pysrc.html#CoopParameterizedTestCase">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Returns a new base class with a cooperative metaclass base.
+
+This enables the ParameterizedTestCase to be used in combination
+with other base classes that have custom metaclasses, such as
+mox.MoxTestBase.
+
+Only works with metaclasses that do not override type.__new__.
+
+Example:
+
+  import google3
+  import mox
+
+  from google3.testing.pybase import parameterized
+
+  class ExampleTest(parameterized.CoopParameterizedTestCase(mox.MoxTestBase)):
+    ...
+
+Args:
+  other_base_class: (class) A test case base class.
+
+Returns:
+  A new class object.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== VARIABLES DETAILS ==================== -->
+<a name="section-VariablesDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-VariablesDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="ADDR_RE"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">ADDR_RE</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+re.compile(r'&lt;<code class="re-group">(</code><code class="re-group">[</code>a<code class="re-op">-</code>zA<code class="re-op">-</code>Z0<code class="re-op">-</code>9_-\.<code class="re-group">]</code><code class="re-op">+</code><code class="re-group">)</code> object at 0x<code class="re-group">[</code>a<code class="re-op">-</code>fA<code class="re-op">-</code>F0<code class="re-op">-</code>9<code class="re-group">]</code><code class="re-op">+</code>&gt;')
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="protobuf-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Thu Dec 22 11:11:38 2016
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

@@ -1,0 +1,1438 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>protobuf.internal.python_message</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="protobuf-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="protobuf-module.html">Package&nbsp;protobuf</a> ::
+        <a href="protobuf.internal-module.html">Package&nbsp;internal</a> ::
+        Module&nbsp;python_message
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="protobuf.internal.python_message-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module python_message</h1><p class="nomargin-top"><span class="codelink"><a href="protobuf.internal.python_message-pysrc.html">source&nbsp;code</a></span></p>
+<p>Contains a metaclass and helper functions used to create protocol 
+  message classes from Descriptor objects at runtime.</p>
+  <p>Recall that a metaclass is the &quot;type&quot; of a class. (A class 
+  is to a metaclass what an instance is to a class.)</p>
+  <p>In this case, we use the GeneratedProtocolMessageType metaclass to 
+  inject all the useful functionality into the classes output by the 
+  protocol compiler at compile-time.</p>
+  <p>The upshot of all this is that the real implementation details for ALL
+  pure-Python protocol buffers are *here in this file*.</p>
+
+<hr />
+<div class="fields">      <p><strong>Author:</strong>
+        robinson@google.com (Will Robinson)
+      </p>
+</div><!-- ==================== CLASSES ==================== -->
+<a name="section-Classes"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Classes</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Classes"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="protobuf.internal.python_message.GeneratedProtocolMessageType-class.html" class="summary-name">GeneratedProtocolMessageType</a><br />
+      Metaclass for protocol message classes created at runtime from 
+        Descriptors.
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="protobuf.internal.python_message._Listener-class.html" class="summary-name" onclick="show_private();">_Listener</a><br />
+      MessageListener implementation that a parent message registers with its
+child message.
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="protobuf.internal.python_message._OneofListener-class.html" class="summary-name" onclick="show_private();">_OneofListener</a><br />
+      Special listener implementation for setting composite oneof fields.
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="protobuf.internal.python_message._ExtensionDict-class.html" class="summary-name" onclick="show_private();">_ExtensionDict</a><br />
+      Dict-like container for supporting an indexable 
+        &quot;Extensions&quot; field on proto instances.
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.python_message-module.html#_PropertyName" class="summary-sig-name" onclick="show_private();">_PropertyName</a>(<span class="summary-sig-arg">proto_field_name</span>)</span><br />
+      Returns the name of the public property attribute which
+clients can use to get and (in some cases) set the value
+of a protocol message field.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_PropertyName">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_VerifyExtensionHandle"></a><span class="summary-sig-name">_VerifyExtensionHandle</span>(<span class="summary-sig-arg">message</span>,
+        <span class="summary-sig-arg">extension_handle</span>)</span><br />
+      Verify that the given extension handle is valid.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_VerifyExtensionHandle">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.python_message-module.html#_AddSlots" class="summary-sig-name" onclick="show_private();">_AddSlots</a>(<span class="summary-sig-arg">message_descriptor</span>,
+        <span class="summary-sig-arg">dictionary</span>)</span><br />
+      Adds a __slots__ entry to dictionary, containing the names of all valid
+attributes for this message type.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddSlots">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_IsMessageSetExtension"></a><span class="summary-sig-name">_IsMessageSetExtension</span>(<span class="summary-sig-arg">field</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_IsMessageSetExtension">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_IsMapField"></a><span class="summary-sig-name">_IsMapField</span>(<span class="summary-sig-arg">field</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_IsMapField">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_IsMessageMapField"></a><span class="summary-sig-name">_IsMessageMapField</span>(<span class="summary-sig-arg">field</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_IsMessageMapField">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_AttachFieldHelpers"></a><span class="summary-sig-name">_AttachFieldHelpers</span>(<span class="summary-sig-arg">cls</span>,
+        <span class="summary-sig-arg">field_descriptor</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AttachFieldHelpers">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_AddClassAttributesForNestedExtensions"></a><span class="summary-sig-name">_AddClassAttributesForNestedExtensions</span>(<span class="summary-sig-arg">descriptor</span>,
+        <span class="summary-sig-arg">dictionary</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddClassAttributesForNestedExtensions">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.python_message-module.html#_AddEnumValues" class="summary-sig-name" onclick="show_private();">_AddEnumValues</a>(<span class="summary-sig-arg">descriptor</span>,
+        <span class="summary-sig-arg">cls</span>)</span><br />
+      Sets class-level attributes for all enum fields defined in this message.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddEnumValues">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_GetInitializeDefaultForMap"></a><span class="summary-sig-name">_GetInitializeDefaultForMap</span>(<span class="summary-sig-arg">field</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_GetInitializeDefaultForMap">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.python_message-module.html#_DefaultValueConstructorForField" class="summary-sig-name" onclick="show_private();">_DefaultValueConstructorForField</a>(<span class="summary-sig-arg">field</span>)</span><br />
+      Returns a function which returns a default value for a field.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_DefaultValueConstructorForField">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_ReraiseTypeErrorWithFieldName"></a><span class="summary-sig-name">_ReraiseTypeErrorWithFieldName</span>(<span class="summary-sig-arg">message_name</span>,
+        <span class="summary-sig-arg">field_name</span>)</span><br />
+      Re-raise the currently-handled TypeError with the field name added.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_ReraiseTypeErrorWithFieldName">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_AddInitMethod"></a><span class="summary-sig-name">_AddInitMethod</span>(<span class="summary-sig-arg">message_descriptor</span>,
+        <span class="summary-sig-arg">cls</span>)</span><br />
+      Adds an __init__ method to cls.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddInitMethod">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.python_message-module.html#_GetFieldByName" class="summary-sig-name" onclick="show_private();">_GetFieldByName</a>(<span class="summary-sig-arg">message_descriptor</span>,
+        <span class="summary-sig-arg">field_name</span>)</span><br />
+      Returns a field descriptor by field name.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_GetFieldByName">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_AddPropertiesForFields"></a><span class="summary-sig-name">_AddPropertiesForFields</span>(<span class="summary-sig-arg">descriptor</span>,
+        <span class="summary-sig-arg">cls</span>)</span><br />
+      Adds properties for all fields in this protocol message type.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddPropertiesForFields">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.python_message-module.html#_AddPropertiesForField" class="summary-sig-name" onclick="show_private();">_AddPropertiesForField</a>(<span class="summary-sig-arg">field</span>,
+        <span class="summary-sig-arg">cls</span>)</span><br />
+      Adds a public property for a protocol message field.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddPropertiesForField">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.python_message-module.html#_AddPropertiesForRepeatedField" class="summary-sig-name" onclick="show_private();">_AddPropertiesForRepeatedField</a>(<span class="summary-sig-arg">field</span>,
+        <span class="summary-sig-arg">cls</span>)</span><br />
+      Adds a public property for a &quot;repeated&quot; protocol message field.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddPropertiesForRepeatedField">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.python_message-module.html#_AddPropertiesForNonRepeatedScalarField" class="summary-sig-name" onclick="show_private();">_AddPropertiesForNonRepeatedScalarField</a>(<span class="summary-sig-arg">field</span>,
+        <span class="summary-sig-arg">cls</span>)</span><br />
+      Adds a public property for a nonrepeated, scalar protocol message field.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddPropertiesForNonRepeatedScalarField">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.python_message-module.html#_AddPropertiesForNonRepeatedCompositeField" class="summary-sig-name" onclick="show_private();">_AddPropertiesForNonRepeatedCompositeField</a>(<span class="summary-sig-arg">field</span>,
+        <span class="summary-sig-arg">cls</span>)</span><br />
+      Adds a public property for a nonrepeated, composite protocol message field.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddPropertiesForNonRepeatedCompositeField">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_AddPropertiesForExtensions"></a><span class="summary-sig-name">_AddPropertiesForExtensions</span>(<span class="summary-sig-arg">descriptor</span>,
+        <span class="summary-sig-arg">cls</span>)</span><br />
+      Adds properties for all fields in this protocol message type.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddPropertiesForExtensions">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_AddStaticMethods"></a><span class="summary-sig-name">_AddStaticMethods</span>(<span class="summary-sig-arg">cls</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddStaticMethods">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_IsPresent"></a><span class="summary-sig-name">_IsPresent</span>(<span class="summary-sig-arg">item</span>)</span><br />
+      Given a (FieldDescriptor, value) tuple from _fields, return true if 
+      the value should be included in the list returned by ListFields().</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_IsPresent">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_AddListFieldsMethod"></a><span class="summary-sig-name">_AddListFieldsMethod</span>(<span class="summary-sig-arg">message_descriptor</span>,
+        <span class="summary-sig-arg">cls</span>)</span><br />
+      Helper for _AddMessageMethods().</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddListFieldsMethod">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_AddHasFieldMethod"></a><span class="summary-sig-name">_AddHasFieldMethod</span>(<span class="summary-sig-arg">message_descriptor</span>,
+        <span class="summary-sig-arg">cls</span>)</span><br />
+      Helper for _AddMessageMethods().</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddHasFieldMethod">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_AddClearFieldMethod"></a><span class="summary-sig-name">_AddClearFieldMethod</span>(<span class="summary-sig-arg">message_descriptor</span>,
+        <span class="summary-sig-arg">cls</span>)</span><br />
+      Helper for _AddMessageMethods().</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddClearFieldMethod">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_AddClearExtensionMethod"></a><span class="summary-sig-name">_AddClearExtensionMethod</span>(<span class="summary-sig-arg">cls</span>)</span><br />
+      Helper for _AddMessageMethods().</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddClearExtensionMethod">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_AddHasExtensionMethod"></a><span class="summary-sig-name">_AddHasExtensionMethod</span>(<span class="summary-sig-arg">cls</span>)</span><br />
+      Helper for _AddMessageMethods().</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddHasExtensionMethod">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.python_message-module.html#_InternalUnpackAny" class="summary-sig-name" onclick="show_private();">_InternalUnpackAny</a>(<span class="summary-sig-arg">msg</span>)</span><br />
+      Unpacks Any message and returns the unpacked message.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_InternalUnpackAny">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_AddEqualsMethod"></a><span class="summary-sig-name">_AddEqualsMethod</span>(<span class="summary-sig-arg">message_descriptor</span>,
+        <span class="summary-sig-arg">cls</span>)</span><br />
+      Helper for _AddMessageMethods().</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddEqualsMethod">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_AddStrMethod"></a><span class="summary-sig-name">_AddStrMethod</span>(<span class="summary-sig-arg">message_descriptor</span>,
+        <span class="summary-sig-arg">cls</span>)</span><br />
+      Helper for _AddMessageMethods().</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddStrMethod">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_AddReprMethod"></a><span class="summary-sig-name">_AddReprMethod</span>(<span class="summary-sig-arg">message_descriptor</span>,
+        <span class="summary-sig-arg">cls</span>)</span><br />
+      Helper for _AddMessageMethods().</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddReprMethod">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_AddUnicodeMethod"></a><span class="summary-sig-name">_AddUnicodeMethod</span>(<span class="summary-sig-arg">unused_message_descriptor</span>,
+        <span class="summary-sig-arg">cls</span>)</span><br />
+      Helper for _AddMessageMethods().</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddUnicodeMethod">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.python_message-module.html#_BytesForNonRepeatedElement" class="summary-sig-name" onclick="show_private();">_BytesForNonRepeatedElement</a>(<span class="summary-sig-arg">value</span>,
+        <span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">field_type</span>)</span><br />
+      Returns the number of bytes needed to serialize a non-repeated element.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_BytesForNonRepeatedElement">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_AddByteSizeMethod"></a><span class="summary-sig-name">_AddByteSizeMethod</span>(<span class="summary-sig-arg">message_descriptor</span>,
+        <span class="summary-sig-arg">cls</span>)</span><br />
+      Helper for _AddMessageMethods().</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddByteSizeMethod">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_AddSerializeToStringMethod"></a><span class="summary-sig-name">_AddSerializeToStringMethod</span>(<span class="summary-sig-arg">message_descriptor</span>,
+        <span class="summary-sig-arg">cls</span>)</span><br />
+      Helper for _AddMessageMethods().</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddSerializeToStringMethod">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_AddSerializePartialToStringMethod"></a><span class="summary-sig-name">_AddSerializePartialToStringMethod</span>(<span class="summary-sig-arg">message_descriptor</span>,
+        <span class="summary-sig-arg">cls</span>)</span><br />
+      Helper for _AddMessageMethods().</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddSerializePartialToStringMethod">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_AddMergeFromStringMethod"></a><span class="summary-sig-name">_AddMergeFromStringMethod</span>(<span class="summary-sig-arg">message_descriptor</span>,
+        <span class="summary-sig-arg">cls</span>)</span><br />
+      Helper for _AddMessageMethods().</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddMergeFromStringMethod">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_AddIsInitializedMethod"></a><span class="summary-sig-name">_AddIsInitializedMethod</span>(<span class="summary-sig-arg">message_descriptor</span>,
+        <span class="summary-sig-arg">cls</span>)</span><br />
+      Adds the IsInitialized and FindInitializationError methods to the 
+      protocol message class.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddIsInitializedMethod">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_AddMergeFromMethod"></a><span class="summary-sig-name">_AddMergeFromMethod</span>(<span class="summary-sig-arg">cls</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddMergeFromMethod">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_AddWhichOneofMethod"></a><span class="summary-sig-name">_AddWhichOneofMethod</span>(<span class="summary-sig-arg">message_descriptor</span>,
+        <span class="summary-sig-arg">cls</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddWhichOneofMethod">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_Clear"></a><span class="summary-sig-name">_Clear</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_Clear">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_DiscardUnknownFields"></a><span class="summary-sig-name">_DiscardUnknownFields</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_DiscardUnknownFields">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_SetListener"></a><span class="summary-sig-name">_SetListener</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">listener</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_SetListener">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_AddMessageMethods"></a><span class="summary-sig-name">_AddMessageMethods</span>(<span class="summary-sig-arg">message_descriptor</span>,
+        <span class="summary-sig-arg">cls</span>)</span><br />
+      Adds implementations of all Message methods to cls.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddMessageMethods">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_AddPrivateHelperMethods"></a><span class="summary-sig-name">_AddPrivateHelperMethods</span>(<span class="summary-sig-arg">message_descriptor</span>,
+        <span class="summary-sig-arg">cls</span>)</span><br />
+      Adds implementation of private helper methods to cls.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddPrivateHelperMethods">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_AnyFullTypeName"></a><span class="summary-name">_AnyFullTypeName</span> = <code title="'google.protobuf.Any'"><code class="variable-quote">'</code><code class="variable-string">google.protobuf.Any</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="protobuf.internal.python_message-module.html#_Proto3HasError" class="summary-name" onclick="show_private();">_Proto3HasError</a> = <code title="'Protocol message has no non-repeated submessage field &quot;%s&quot;'"><code class="variable-quote">'</code><code class="variable-string">Protocol message has no non-repeated submes</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="protobuf.internal.python_message-module.html#_Proto2HasError" class="summary-name" onclick="show_private();">_Proto2HasError</a> = <code title="'Protocol message has no non-repeated field &quot;%s&quot;'"><code class="variable-quote">'</code><code class="variable-string">Protocol message has no non-repeated field </code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'protobuf.internal'"><code class="variable-quote">'</code><code class="variable-string">protobuf.internal</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="_PropertyName"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_PropertyName</span>(<span class="sig-arg">proto_field_name</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_PropertyName">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Returns the name of the public property attribute which
+clients can use to get and (in some cases) set the value
+of a protocol message field.
+
+Args:
+  proto_field_name: The protocol message field name, exactly
+    as it appears (or would appear) in a .proto file.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_AddSlots"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_AddSlots</span>(<span class="sig-arg">message_descriptor</span>,
+        <span class="sig-arg">dictionary</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddSlots">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Adds a __slots__ entry to dictionary, containing the names of all valid
+attributes for this message type.
+
+Args:
+  message_descriptor: A Descriptor instance describing this message type.
+  dictionary: Class dictionary to which we'll add a '__slots__' entry.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_AddEnumValues"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_AddEnumValues</span>(<span class="sig-arg">descriptor</span>,
+        <span class="sig-arg">cls</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddEnumValues">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Sets class-level attributes for all enum fields defined in this message.
+
+Also exporting a class-level object that can name enum values.
+
+Args:
+  descriptor: Descriptor object for this message type.
+  cls: Class we're constructing for this message type.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_DefaultValueConstructorForField"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_DefaultValueConstructorForField</span>(<span class="sig-arg">field</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_DefaultValueConstructorForField">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Returns a function which returns a default value for a field.
+
+Args:
+  field: FieldDescriptor object for this field.
+
+The returned function has one argument:
+  message: Message instance containing this field, or a weakref proxy
+    of same.
+
+That function in turn returns a default value for this field.  The default
+  value may refer back to |message| via a weak reference.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_GetFieldByName"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_GetFieldByName</span>(<span class="sig-arg">message_descriptor</span>,
+        <span class="sig-arg">field_name</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_GetFieldByName">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Returns a field descriptor by field name.
+
+Args:
+  message_descriptor: A Descriptor describing all fields in message.
+  field_name: The name of the field to retrieve.
+Returns:
+  The field descriptor associated with the field name.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_AddPropertiesForField"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_AddPropertiesForField</span>(<span class="sig-arg">field</span>,
+        <span class="sig-arg">cls</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddPropertiesForField">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Adds a public property for a protocol message field.
+Clients can use this property to get and (in the case
+of non-repeated scalar fields) directly set the value
+of a protocol message field.
+
+Args:
+  field: A FieldDescriptor for this field.
+  cls: The class we're constructing.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_AddPropertiesForRepeatedField"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_AddPropertiesForRepeatedField</span>(<span class="sig-arg">field</span>,
+        <span class="sig-arg">cls</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddPropertiesForRepeatedField">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Adds a public property for a &quot;repeated&quot; protocol message field.  Clients
+can use this property to get the value of the field, which will be either a
+_RepeatedScalarFieldContainer or _RepeatedCompositeFieldContainer (see
+below).
+
+Note that when clients add values to these containers, we perform
+type-checking in the case of repeated scalar fields, and we also set any
+necessary &quot;has&quot; bits as a side-effect.
+
+Args:
+  field: A FieldDescriptor for this field.
+  cls: The class we're constructing.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_AddPropertiesForNonRepeatedScalarField"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_AddPropertiesForNonRepeatedScalarField</span>(<span class="sig-arg">field</span>,
+        <span class="sig-arg">cls</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddPropertiesForNonRepeatedScalarField">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Adds a public property for a nonrepeated, scalar protocol message field.
+Clients can use this property to get and directly set the value of the field.
+Note that when the client sets the value of a field by using this property,
+all necessary &quot;has&quot; bits are set as a side-effect, and we also perform
+type-checking.
+
+Args:
+  field: A FieldDescriptor for this field.
+  cls: The class we're constructing.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_AddPropertiesForNonRepeatedCompositeField"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_AddPropertiesForNonRepeatedCompositeField</span>(<span class="sig-arg">field</span>,
+        <span class="sig-arg">cls</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_AddPropertiesForNonRepeatedCompositeField">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Adds a public property for a nonrepeated, composite protocol message field.
+A composite field is a &quot;group&quot; or &quot;message&quot; field.
+
+Clients can use this property to get the value of the field, but cannot
+assign to the property directly.
+
+Args:
+  field: A FieldDescriptor for this field.
+  cls: The class we're constructing.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_InternalUnpackAny"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_InternalUnpackAny</span>(<span class="sig-arg">msg</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_InternalUnpackAny">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Unpacks Any message and returns the unpacked message.
+
+This internal method is differnt from public Any Unpack method which takes
+the target message as argument. _InternalUnpackAny method does not have
+target message type and need to find the message type in descriptor pool.
+
+Args:
+  msg: An Any message to be unpacked.
+
+Returns:
+  The unpacked message.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_BytesForNonRepeatedElement"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_BytesForNonRepeatedElement</span>(<span class="sig-arg">value</span>,
+        <span class="sig-arg">field_number</span>,
+        <span class="sig-arg">field_type</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.python_message-pysrc.html#_BytesForNonRepeatedElement">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Returns the number of bytes needed to serialize a non-repeated element.
+The returned byte count includes space for tag information and any
+other additional space associated with serializing value.
+
+Args:
+  value: Value we're serializing.
+  field_number: Field number of this value.  (Since the field number
+    is stored as part of a varint-encoded tag, this has an impact
+    on the total bytes required to serialize the value).
+  field_type: The type of the field.  One of the TYPE_* constants
+    within FieldDescriptor.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== VARIABLES DETAILS ==================== -->
+<a name="section-VariablesDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-VariablesDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="_Proto3HasError"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">_Proto3HasError</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-quote">'</code><code class="variable-string">Protocol message has no non-repeated submessage field &quot;%s&quot;</code><code class="variable-quote">'</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="_Proto2HasError"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">_Proto2HasError</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-quote">'</code><code class="variable-string">Protocol message has no non-repeated field &quot;%s&quot;</code><code class="variable-quote">'</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="protobuf-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Thu Dec 22 11:11:38 2016
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

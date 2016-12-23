@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>protobuf.internal.type_checkers</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="protobuf-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="protobuf-module.html">Package&nbsp;protobuf</a> ::
+        <a href="protobuf.internal-module.html">Package&nbsp;internal</a> ::
+        Module&nbsp;type_checkers
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="protobuf.internal.type_checkers-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module type_checkers</h1><p class="nomargin-top"><span class="codelink"><a href="protobuf.internal.type_checkers-pysrc.html">source&nbsp;code</a></span></p>
+<pre class="literalblock">
+Provides type checking routines.
+
+This module defines type checking utilities in the forms of dictionaries:
+
+VALUE_CHECKERS: A dictionary of field types and a value validation object.
+TYPE_TO_BYTE_SIZE_FN: A dictionary with field types and a size computing
+  function.
+TYPE_TO_SERIALIZE_METHOD: A dictionary with field types and serialization
+  function.
+FIELD_TYPE_TO_WIRE_TYPE: A dictionary with field typed and their
+  coresponding wire types.
+TYPE_TO_DESERIALIZE_METHOD: A dictionary with field types and deserialization
+  function.
+
+</pre>
+
+<hr />
+<div class="fields">      <p><strong>Author:</strong>
+        robinson@google.com (Will Robinson)
+      </p>
+</div><!-- ==================== CLASSES ==================== -->
+<a name="section-Classes"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Classes</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Classes"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="int-class.html" class="summary-name">long</a><br />
+      int(x=0) -&gt; int or long int(x, base=10) -&gt; int or long
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="protobuf.internal.type_checkers.TypeChecker-class.html" class="summary-name">TypeChecker</a><br />
+      Type checker used to catch type errors as early as possible when 
+        the client is setting scalar fields in protocol messages.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="protobuf.internal.type_checkers.TypeCheckerWithDefault-class.html" class="summary-name">TypeCheckerWithDefault</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="protobuf.internal.type_checkers.IntValueChecker-class.html" class="summary-name">IntValueChecker</a><br />
+      Checker used for integer fields.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="protobuf.internal.type_checkers.EnumValueChecker-class.html" class="summary-name">EnumValueChecker</a><br />
+      Checker used for enum fields.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="protobuf.internal.type_checkers.UnicodeValueChecker-class.html" class="summary-name">UnicodeValueChecker</a><br />
+      Checker used for string fields.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="protobuf.internal.type_checkers.Int32ValueChecker-class.html" class="summary-name">Int32ValueChecker</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="protobuf.internal.type_checkers.Uint32ValueChecker-class.html" class="summary-name">Uint32ValueChecker</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="protobuf.internal.type_checkers.Int64ValueChecker-class.html" class="summary-name">Int64ValueChecker</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="protobuf.internal.type_checkers.Uint64ValueChecker-class.html" class="summary-name">Uint64ValueChecker</a>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="SupportsOpenEnums"></a><span class="summary-sig-name">SupportsOpenEnums</span>(<span class="summary-sig-arg">field_descriptor</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.type_checkers-pysrc.html#SupportsOpenEnums">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.type_checkers-module.html#GetTypeChecker" class="summary-sig-name">GetTypeChecker</a>(<span class="summary-sig-arg">field</span>)</span><br />
+      Returns a type checker for a message field of the specified types.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.type_checkers-pysrc.html#GetTypeChecker">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="protobuf.internal.type_checkers-module.html#_VALUE_CHECKERS" class="summary-name" onclick="show_private();">_VALUE_CHECKERS</a> = <code title="{_FieldDescriptor.CPPTYPE_INT32: Int32ValueChecker(), _FieldDescriptor\
+.CPPTYPE_INT64: Int64ValueChecker(), _FieldDescriptor.CPPTYPE_UINT32: \
+Uint32ValueChecker(), _FieldDescriptor.CPPTYPE_UINT64: Uint64ValueChec\
+ker(), _FieldDescriptor.CPPTYPE_DOUBLE: TypeCheckerWithDefault(0.0, fl\
+oat, int, long), _FieldDescriptor.CPPTYPE_FLOAT: TypeCheckerWithDefaul\
+t(0.0, float, int, long), _FieldDescriptor.CPPTYPE_BOOL: TypeCheckerWi\
+thDefault(False, bool, int), _FieldDescriptor.CPPTYPE_STRING: TypeChec\
+kerWithDefault(b'', bytes),}">{_FieldDescriptor.CPPTYPE_INT32: Int32ValueC<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="protobuf.internal.type_checkers-module.html#TYPE_TO_BYTE_SIZE_FN" class="summary-name">TYPE_TO_BYTE_SIZE_FN</a> = <code title="{_FieldDescriptor.TYPE_DOUBLE: wire_format.DoubleByteSize, _FieldDescr\
+iptor.TYPE_FLOAT: wire_format.FloatByteSize, _FieldDescriptor.TYPE_INT\
+64: wire_format.Int64ByteSize, _FieldDescriptor.TYPE_UINT64: wire_form\
+at.UInt64ByteSize, _FieldDescriptor.TYPE_INT32: wire_format.Int32ByteS\
+ize, _FieldDescriptor.TYPE_FIXED64: wire_format.Fixed64ByteSize, _Fiel\
+dDescriptor.TYPE_FIXED32: wire_format.Fixed32ByteSize, _FieldDescripto\
+r.TYPE_BOOL: wire_format.BoolByteSize, _FieldDescriptor.TYPE_STRING: w\
+ire_format.StringByteSize, _FieldDescriptor.TYPE_GROUP: wire_format.Gr\
+...">{_FieldDescriptor.TYPE_DOUBLE: wire_for<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="protobuf.internal.type_checkers-module.html#TYPE_TO_ENCODER" class="summary-name">TYPE_TO_ENCODER</a> = <code title="{_FieldDescriptor.TYPE_DOUBLE: encoder.DoubleEncoder, _FieldDescriptor\
+.TYPE_FLOAT: encoder.FloatEncoder, _FieldDescriptor.TYPE_INT64: encode\
+r.Int64Encoder, _FieldDescriptor.TYPE_UINT64: encoder.UInt64Encoder, _\
+FieldDescriptor.TYPE_INT32: encoder.Int32Encoder, _FieldDescriptor.TYP\
+E_FIXED64: encoder.Fixed64Encoder, _FieldDescriptor.TYPE_FIXED32: enco\
+der.Fixed32Encoder, _FieldDescriptor.TYPE_BOOL: encoder.BoolEncoder, _\
+FieldDescriptor.TYPE_STRING: encoder.StringEncoder, _FieldDescriptor.T\
+YPE_GROUP: encoder.GroupEncoder, _FieldDescriptor.TYPE_MESSAGE: encode\
+...">{_FieldDescriptor.TYPE_DOUBLE: encoder.Doubl<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="protobuf.internal.type_checkers-module.html#TYPE_TO_SIZER" class="summary-name">TYPE_TO_SIZER</a> = <code title="{_FieldDescriptor.TYPE_DOUBLE: encoder.DoubleSizer, _FieldDescriptor.T\
+YPE_FLOAT: encoder.FloatSizer, _FieldDescriptor.TYPE_INT64: encoder.In\
+t64Sizer, _FieldDescriptor.TYPE_UINT64: encoder.UInt64Sizer, _FieldDes\
+criptor.TYPE_INT32: encoder.Int32Sizer, _FieldDescriptor.TYPE_FIXED64:\
+ encoder.Fixed64Sizer, _FieldDescriptor.TYPE_FIXED32: encoder.Fixed32S\
+izer, _FieldDescriptor.TYPE_BOOL: encoder.BoolSizer, _FieldDescriptor.\
+TYPE_STRING: encoder.StringSizer, _FieldDescriptor.TYPE_GROUP: encoder\
+.GroupSizer, _FieldDescriptor.TYPE_MESSAGE: encoder.MessageSizer, _Fie\
+...">{_FieldDescriptor.TYPE_DOUBLE: encoder.DoubleS<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="protobuf.internal.type_checkers-module.html#TYPE_TO_DECODER" class="summary-name">TYPE_TO_DECODER</a> = <code title="{_FieldDescriptor.TYPE_DOUBLE: decoder.DoubleDecoder, _FieldDescriptor\
+.TYPE_FLOAT: decoder.FloatDecoder, _FieldDescriptor.TYPE_INT64: decode\
+r.Int64Decoder, _FieldDescriptor.TYPE_UINT64: decoder.UInt64Decoder, _\
+FieldDescriptor.TYPE_INT32: decoder.Int32Decoder, _FieldDescriptor.TYP\
+E_FIXED64: decoder.Fixed64Decoder, _FieldDescriptor.TYPE_FIXED32: deco\
+der.Fixed32Decoder, _FieldDescriptor.TYPE_BOOL: decoder.BoolDecoder, _\
+FieldDescriptor.TYPE_STRING: decoder.StringDecoder, _FieldDescriptor.T\
+YPE_GROUP: decoder.GroupDecoder, _FieldDescriptor.TYPE_MESSAGE: decode\
+...">{_FieldDescriptor.TYPE_DOUBLE: decoder.Doubl<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="protobuf.internal.type_checkers-module.html#FIELD_TYPE_TO_WIRE_TYPE" class="summary-name">FIELD_TYPE_TO_WIRE_TYPE</a> = <code title="{1: 1,
+ 2: 5,
+ 3: 0,
+ 4: 0,
+ 5: 0,
+ 6: 1,
+ 7: 5,
+ 8: 0,
+..."><code class="variable-group">{</code>1<code class="variable-op">: </code>1<code class="variable-op">, </code>2<code class="variable-op">: </code>5<code class="variable-op">, </code>3<code class="variable-op">: </code>0<code class="variable-op">, </code>4<code class="variable-op">: </code>0<code class="variable-op">, </code>5<code class="variable-op">: </code>0<code class="variable-op">, </code>6<code class="variable-op">: </code>1<code class="variable-op">,</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'protobuf.internal'"><code class="variable-quote">'</code><code class="variable-string">protobuf.internal</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="GetTypeChecker"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">GetTypeChecker</span>(<span class="sig-arg">field</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.type_checkers-pysrc.html#GetTypeChecker">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Returns a type checker for a message field of the specified types.
+
+Args:
+  field: FieldDescriptor object for this field.
+
+Returns:
+  An instance of TypeChecker which can be used to verify the types
+  of values assigned to a field of the specified type.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== VARIABLES DETAILS ==================== -->
+<a name="section-VariablesDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-VariablesDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="_VALUE_CHECKERS"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">_VALUE_CHECKERS</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+{_FieldDescriptor.CPPTYPE_INT32: Int32ValueChecker(), _FieldDescriptor<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+.CPPTYPE_INT64: Int64ValueChecker(), _FieldDescriptor.CPPTYPE_UINT32: <span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+Uint32ValueChecker(), _FieldDescriptor.CPPTYPE_UINT64: Uint64ValueChec<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ker(), _FieldDescriptor.CPPTYPE_DOUBLE: TypeCheckerWithDefault(0.0, fl<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+oat, int, long), _FieldDescriptor.CPPTYPE_FLOAT: TypeCheckerWithDefaul<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+t(0.0, float, int, long), _FieldDescriptor.CPPTYPE_BOOL: TypeCheckerWi<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+thDefault(False, bool, int), _FieldDescriptor.CPPTYPE_STRING: TypeChec<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+kerWithDefault(b'', bytes),}
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="TYPE_TO_BYTE_SIZE_FN"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">TYPE_TO_BYTE_SIZE_FN</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+{_FieldDescriptor.TYPE_DOUBLE: wire_format.DoubleByteSize, _FieldDescr<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+iptor.TYPE_FLOAT: wire_format.FloatByteSize, _FieldDescriptor.TYPE_INT<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+64: wire_format.Int64ByteSize, _FieldDescriptor.TYPE_UINT64: wire_form<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+at.UInt64ByteSize, _FieldDescriptor.TYPE_INT32: wire_format.Int32ByteS<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ize, _FieldDescriptor.TYPE_FIXED64: wire_format.Fixed64ByteSize, _Fiel<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+dDescriptor.TYPE_FIXED32: wire_format.Fixed32ByteSize, _FieldDescripto<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+r.TYPE_BOOL: wire_format.BoolByteSize, _FieldDescriptor.TYPE_STRING: w<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ire_format.StringByteSize, _FieldDescriptor.TYPE_GROUP: wire_format.Gr<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="TYPE_TO_ENCODER"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">TYPE_TO_ENCODER</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+{_FieldDescriptor.TYPE_DOUBLE: encoder.DoubleEncoder, _FieldDescriptor<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+.TYPE_FLOAT: encoder.FloatEncoder, _FieldDescriptor.TYPE_INT64: encode<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+r.Int64Encoder, _FieldDescriptor.TYPE_UINT64: encoder.UInt64Encoder, _<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+FieldDescriptor.TYPE_INT32: encoder.Int32Encoder, _FieldDescriptor.TYP<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+E_FIXED64: encoder.Fixed64Encoder, _FieldDescriptor.TYPE_FIXED32: enco<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+der.Fixed32Encoder, _FieldDescriptor.TYPE_BOOL: encoder.BoolEncoder, _<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+FieldDescriptor.TYPE_STRING: encoder.StringEncoder, _FieldDescriptor.T<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+YPE_GROUP: encoder.GroupEncoder, _FieldDescriptor.TYPE_MESSAGE: encode<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="TYPE_TO_SIZER"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">TYPE_TO_SIZER</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+{_FieldDescriptor.TYPE_DOUBLE: encoder.DoubleSizer, _FieldDescriptor.T<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+YPE_FLOAT: encoder.FloatSizer, _FieldDescriptor.TYPE_INT64: encoder.In<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+t64Sizer, _FieldDescriptor.TYPE_UINT64: encoder.UInt64Sizer, _FieldDes<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+criptor.TYPE_INT32: encoder.Int32Sizer, _FieldDescriptor.TYPE_FIXED64:<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+ encoder.Fixed64Sizer, _FieldDescriptor.TYPE_FIXED32: encoder.Fixed32S<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+izer, _FieldDescriptor.TYPE_BOOL: encoder.BoolSizer, _FieldDescriptor.<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+TYPE_STRING: encoder.StringSizer, _FieldDescriptor.TYPE_GROUP: encoder<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+.GroupSizer, _FieldDescriptor.TYPE_MESSAGE: encoder.MessageSizer, _Fie<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="TYPE_TO_DECODER"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">TYPE_TO_DECODER</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+{_FieldDescriptor.TYPE_DOUBLE: decoder.DoubleDecoder, _FieldDescriptor<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+.TYPE_FLOAT: decoder.FloatDecoder, _FieldDescriptor.TYPE_INT64: decode<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+r.Int64Decoder, _FieldDescriptor.TYPE_UINT64: decoder.UInt64Decoder, _<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+FieldDescriptor.TYPE_INT32: decoder.Int32Decoder, _FieldDescriptor.TYP<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+E_FIXED64: decoder.Fixed64Decoder, _FieldDescriptor.TYPE_FIXED32: deco<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+der.Fixed32Decoder, _FieldDescriptor.TYPE_BOOL: decoder.BoolDecoder, _<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+FieldDescriptor.TYPE_STRING: decoder.StringDecoder, _FieldDescriptor.T<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+YPE_GROUP: decoder.GroupDecoder, _FieldDescriptor.TYPE_MESSAGE: decode<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="FIELD_TYPE_TO_WIRE_TYPE"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">FIELD_TYPE_TO_WIRE_TYPE</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-group">{</code>1<code class="variable-op">: </code>1<code class="variable-op">,</code>
+ 2<code class="variable-op">: </code>5<code class="variable-op">,</code>
+ 3<code class="variable-op">: </code>0<code class="variable-op">,</code>
+ 4<code class="variable-op">: </code>0<code class="variable-op">,</code>
+ 5<code class="variable-op">: </code>0<code class="variable-op">,</code>
+ 6<code class="variable-op">: </code>1<code class="variable-op">,</code>
+ 7<code class="variable-op">: </code>5<code class="variable-op">,</code>
+ 8<code class="variable-op">: </code>0<code class="variable-op">,</code>
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="protobuf-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Thu Dec 22 11:11:38 2016
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

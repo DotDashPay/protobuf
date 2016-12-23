@@ -1,0 +1,1419 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>protobuf.internal.decoder</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="protobuf-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="protobuf-module.html">Package&nbsp;protobuf</a> ::
+        <a href="protobuf.internal-module.html">Package&nbsp;internal</a> ::
+        Module&nbsp;decoder
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="protobuf.internal.decoder-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module decoder</h1><p class="nomargin-top"><span class="codelink"><a href="protobuf.internal.decoder-pysrc.html">source&nbsp;code</a></span></p>
+<pre class="literalblock">
+Code for decoding protocol buffer primitives.
+
+This code is very similar to encoder.py -- read the docs for that module first.
+
+A &quot;decoder&quot; is a function with the signature:
+  Decode(buffer, pos, end, message, field_dict)
+The arguments are:
+  buffer:     The string containing the encoded message.
+  pos:        The current position in the string.
+  end:        The position in the string where the current message ends.  May be
+              less than len(buffer) if we're reading a sub-message.
+  message:    The message object into which we're parsing.
+  field_dict: message._fields (avoids a hashtable lookup).
+The decoder reads the field and stores it into field_dict, returning the new
+buffer position.  A decoder for a repeated field may proactively decode all of
+the elements of that field, if they appear consecutively.
+
+Note that decoders may throw any of the following:
+  IndexError:  Indicates a truncated message.
+  struct.error:  Unpacking of a fixed-width field failed.
+  message.DecodeError:  Other errors.
+
+Decoders are expected to raise an exception if they are called with pos &gt; end.
+This allows callers to be lax about bounds checking:  it's fineto read past
+&quot;end&quot; as long as you are sure that someone else will notice and throw an
+exception later on.
+
+Something up the call stack is expected to catch IndexError and struct.error
+and convert them to message.DecodeError.
+
+Decoders are constructed using decoder constructors with the signature:
+  MakeDecoder(field_number, is_repeated, is_packed, key, new_default)
+The arguments are:
+  field_number:  The field number of the field we want to decode.
+  is_repeated:   Is the field a repeated field? (bool)
+  is_packed:     Is the field a packed field? (bool)
+  key:           The key to use when looking up the field within field_dict.
+                 (This is actually the FieldDescriptor but nothing in this
+                 file should depend on that.)
+  new_default:   A function which takes a message object as a parameter and
+                 returns a new instance of the default value for this field.
+                 (This is called for repeated fields and sub-messages, when an
+                 instance does not already exist.)
+
+As with encoders, we define a decoder constructor for every type of field.
+Then, for every field of every message class we construct an actual decoder.
+That decoder goes into a dict indexed by tag, so when we decode a message
+we repeatedly read a tag, look up the corresponding decoder, and invoke it.
+
+</pre>
+
+<hr />
+<div class="fields">      <p><strong>Author:</strong>
+        kenton@google.com (Kenton Varda)
+      </p>
+</div><!-- ==================== CLASSES ==================== -->
+<a name="section-Classes"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Classes</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Classes"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="int-class.html" class="summary-name">long</a><br />
+      int(x=0) -&gt; int or long int(x, base=10) -&gt; int or long
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.decoder-module.html#_VarintDecoder" class="summary-sig-name" onclick="show_private();">_VarintDecoder</a>(<span class="summary-sig-arg">mask</span>,
+        <span class="summary-sig-arg">result_type</span>)</span><br />
+      Return an encoder for a basic varint value (does not include tag).</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#_VarintDecoder">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_SignedVarintDecoder"></a><span class="summary-sig-name">_SignedVarintDecoder</span>(<span class="summary-sig-arg">mask</span>,
+        <span class="summary-sig-arg">result_type</span>)</span><br />
+      Like _VarintDecoder() but decodes signed values.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#_SignedVarintDecoder">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_DecodeVarint"></a><span class="summary-sig-name">_DecodeVarint</span>(<span class="summary-sig-arg">buffer</span>,
+        <span class="summary-sig-arg">pos</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#_DecodeVarint">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_DecodeSignedVarint"></a><span class="summary-sig-name">_DecodeSignedVarint</span>(<span class="summary-sig-arg">buffer</span>,
+        <span class="summary-sig-arg">pos</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#_DecodeSignedVarint">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_DecodeVarint32"></a><span class="summary-sig-name">_DecodeVarint32</span>(<span class="summary-sig-arg">buffer</span>,
+        <span class="summary-sig-arg">pos</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#_DecodeVarint32">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_DecodeSignedVarint32"></a><span class="summary-sig-name">_DecodeSignedVarint32</span>(<span class="summary-sig-arg">buffer</span>,
+        <span class="summary-sig-arg">pos</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#_DecodeSignedVarint32">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.decoder-module.html#ReadTag" class="summary-sig-name">ReadTag</a>(<span class="summary-sig-arg">buffer</span>,
+        <span class="summary-sig-arg">pos</span>)</span><br />
+      Read a tag from the buffer, and return a (tag_bytes, new_pos) tuple.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#ReadTag">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.decoder-module.html#_SimpleDecoder" class="summary-sig-name" onclick="show_private();">_SimpleDecoder</a>(<span class="summary-sig-arg">wire_type</span>,
+        <span class="summary-sig-arg">decode_value</span>)</span><br />
+      Return a constructor for a decoder for fields of a particular type.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#_SimpleDecoder">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.decoder-module.html#_ModifiedDecoder" class="summary-sig-name" onclick="show_private();">_ModifiedDecoder</a>(<span class="summary-sig-arg">wire_type</span>,
+        <span class="summary-sig-arg">decode_value</span>,
+        <span class="summary-sig-arg">modify_value</span>)</span><br />
+      Like SimpleDecoder but additionally invokes modify_value on every 
+      value before storing it.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#_ModifiedDecoder">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.decoder-module.html#_StructPackDecoder" class="summary-sig-name" onclick="show_private();">_StructPackDecoder</a>(<span class="summary-sig-arg">wire_type</span>,
+        <span class="summary-sig-arg">format</span>)</span><br />
+      Return a constructor for a decoder for a fixed-width field.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#_StructPackDecoder">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.decoder-module.html#_FloatDecoder" class="summary-sig-name" onclick="show_private();">_FloatDecoder</a>()</span><br />
+      Returns a decoder for a float field.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#_FloatDecoder">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.decoder-module.html#_DoubleDecoder" class="summary-sig-name" onclick="show_private();">_DoubleDecoder</a>()</span><br />
+      Returns a decoder for a double field.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#_DoubleDecoder">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="EnumDecoder"></a><span class="summary-sig-name">EnumDecoder</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">is_repeated</span>,
+        <span class="summary-sig-arg">is_packed</span>,
+        <span class="summary-sig-arg">key</span>,
+        <span class="summary-sig-arg">new_default</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#EnumDecoder">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="Int32Decoder"></a><span class="summary-sig-name">Int32Decoder</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">is_repeated</span>,
+        <span class="summary-sig-arg">is_packed</span>,
+        <span class="summary-sig-arg">key</span>,
+        <span class="summary-sig-arg">new_default</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#Int32Decoder">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="Int64Decoder"></a><span class="summary-sig-name">Int64Decoder</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">is_repeated</span>,
+        <span class="summary-sig-arg">is_packed</span>,
+        <span class="summary-sig-arg">key</span>,
+        <span class="summary-sig-arg">new_default</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#Int64Decoder">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="UInt32Decoder"></a><span class="summary-sig-name">UInt32Decoder</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">is_repeated</span>,
+        <span class="summary-sig-arg">is_packed</span>,
+        <span class="summary-sig-arg">key</span>,
+        <span class="summary-sig-arg">new_default</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#UInt32Decoder">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="UInt64Decoder"></a><span class="summary-sig-name">UInt64Decoder</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">is_repeated</span>,
+        <span class="summary-sig-arg">is_packed</span>,
+        <span class="summary-sig-arg">key</span>,
+        <span class="summary-sig-arg">new_default</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#UInt64Decoder">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="SInt32Decoder"></a><span class="summary-sig-name">SInt32Decoder</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">is_repeated</span>,
+        <span class="summary-sig-arg">is_packed</span>,
+        <span class="summary-sig-arg">key</span>,
+        <span class="summary-sig-arg">new_default</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#SInt32Decoder">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="SInt64Decoder"></a><span class="summary-sig-name">SInt64Decoder</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">is_repeated</span>,
+        <span class="summary-sig-arg">is_packed</span>,
+        <span class="summary-sig-arg">key</span>,
+        <span class="summary-sig-arg">new_default</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#SInt64Decoder">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="Fixed32Decoder"></a><span class="summary-sig-name">Fixed32Decoder</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">is_repeated</span>,
+        <span class="summary-sig-arg">is_packed</span>,
+        <span class="summary-sig-arg">key</span>,
+        <span class="summary-sig-arg">new_default</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#Fixed32Decoder">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="Fixed64Decoder"></a><span class="summary-sig-name">Fixed64Decoder</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">is_repeated</span>,
+        <span class="summary-sig-arg">is_packed</span>,
+        <span class="summary-sig-arg">key</span>,
+        <span class="summary-sig-arg">new_default</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#Fixed64Decoder">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="SFixed32Decoder"></a><span class="summary-sig-name">SFixed32Decoder</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">is_repeated</span>,
+        <span class="summary-sig-arg">is_packed</span>,
+        <span class="summary-sig-arg">key</span>,
+        <span class="summary-sig-arg">new_default</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#SFixed32Decoder">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="SFixed64Decoder"></a><span class="summary-sig-name">SFixed64Decoder</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">is_repeated</span>,
+        <span class="summary-sig-arg">is_packed</span>,
+        <span class="summary-sig-arg">key</span>,
+        <span class="summary-sig-arg">new_default</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#SFixed64Decoder">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="FloatDecoder"></a><span class="summary-sig-name">FloatDecoder</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">is_repeated</span>,
+        <span class="summary-sig-arg">is_packed</span>,
+        <span class="summary-sig-arg">key</span>,
+        <span class="summary-sig-arg">new_default</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#FloatDecoder">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="DoubleDecoder"></a><span class="summary-sig-name">DoubleDecoder</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">is_repeated</span>,
+        <span class="summary-sig-arg">is_packed</span>,
+        <span class="summary-sig-arg">key</span>,
+        <span class="summary-sig-arg">new_default</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#DoubleDecoder">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="BoolDecoder"></a><span class="summary-sig-name">BoolDecoder</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">is_repeated</span>,
+        <span class="summary-sig-arg">is_packed</span>,
+        <span class="summary-sig-arg">key</span>,
+        <span class="summary-sig-arg">new_default</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#BoolDecoder">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="StringDecoder"></a><span class="summary-sig-name">StringDecoder</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">is_repeated</span>,
+        <span class="summary-sig-arg">is_packed</span>,
+        <span class="summary-sig-arg">key</span>,
+        <span class="summary-sig-arg">new_default</span>)</span><br />
+      Returns a decoder for a string field.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#StringDecoder">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="BytesDecoder"></a><span class="summary-sig-name">BytesDecoder</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">is_repeated</span>,
+        <span class="summary-sig-arg">is_packed</span>,
+        <span class="summary-sig-arg">key</span>,
+        <span class="summary-sig-arg">new_default</span>)</span><br />
+      Returns a decoder for a bytes field.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#BytesDecoder">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="GroupDecoder"></a><span class="summary-sig-name">GroupDecoder</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">is_repeated</span>,
+        <span class="summary-sig-arg">is_packed</span>,
+        <span class="summary-sig-arg">key</span>,
+        <span class="summary-sig-arg">new_default</span>)</span><br />
+      Returns a decoder for a group field.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#GroupDecoder">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="MessageDecoder"></a><span class="summary-sig-name">MessageDecoder</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">is_repeated</span>,
+        <span class="summary-sig-arg">is_packed</span>,
+        <span class="summary-sig-arg">key</span>,
+        <span class="summary-sig-arg">new_default</span>)</span><br />
+      Returns a decoder for a message field.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#MessageDecoder">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.decoder-module.html#MessageSetItemDecoder" class="summary-sig-name">MessageSetItemDecoder</a>(<span class="summary-sig-arg">extensions_by_number</span>)</span><br />
+      Returns a decoder for a MessageSet item.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#MessageSetItemDecoder">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="MapDecoder"></a><span class="summary-sig-name">MapDecoder</span>(<span class="summary-sig-arg">field_descriptor</span>,
+        <span class="summary-sig-arg">new_default</span>,
+        <span class="summary-sig-arg">is_message_map</span>)</span><br />
+      Returns a decoder for a map field.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#MapDecoder">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.decoder-module.html#_SkipVarint" class="summary-sig-name" onclick="show_private();">_SkipVarint</a>(<span class="summary-sig-arg">buffer</span>,
+        <span class="summary-sig-arg">pos</span>,
+        <span class="summary-sig-arg">end</span>)</span><br />
+      Skip a varint value.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#_SkipVarint">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.decoder-module.html#_SkipFixed64" class="summary-sig-name" onclick="show_private();">_SkipFixed64</a>(<span class="summary-sig-arg">buffer</span>,
+        <span class="summary-sig-arg">pos</span>,
+        <span class="summary-sig-arg">end</span>)</span><br />
+      Skip a fixed64 value.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#_SkipFixed64">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.decoder-module.html#_SkipLengthDelimited" class="summary-sig-name" onclick="show_private();">_SkipLengthDelimited</a>(<span class="summary-sig-arg">buffer</span>,
+        <span class="summary-sig-arg">pos</span>,
+        <span class="summary-sig-arg">end</span>)</span><br />
+      Skip a length-delimited value.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#_SkipLengthDelimited">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.decoder-module.html#_SkipGroup" class="summary-sig-name" onclick="show_private();">_SkipGroup</a>(<span class="summary-sig-arg">buffer</span>,
+        <span class="summary-sig-arg">pos</span>,
+        <span class="summary-sig-arg">end</span>)</span><br />
+      Skip sub-group.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#_SkipGroup">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_EndGroup"></a><span class="summary-sig-name">_EndGroup</span>(<span class="summary-sig-arg">buffer</span>,
+        <span class="summary-sig-arg">pos</span>,
+        <span class="summary-sig-arg">end</span>)</span><br />
+      Skipping an END_GROUP tag returns -1 to tell the parent loop to 
+      break.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#_EndGroup">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.decoder-module.html#_SkipFixed32" class="summary-sig-name" onclick="show_private();">_SkipFixed32</a>(<span class="summary-sig-arg">buffer</span>,
+        <span class="summary-sig-arg">pos</span>,
+        <span class="summary-sig-arg">end</span>)</span><br />
+      Skip a fixed32 value.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#_SkipFixed32">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.decoder-module.html#_RaiseInvalidWireType" class="summary-sig-name" onclick="show_private();">_RaiseInvalidWireType</a>(<span class="summary-sig-arg">buffer</span>,
+        <span class="summary-sig-arg">pos</span>,
+        <span class="summary-sig-arg">end</span>)</span><br />
+      Skip function for unknown wire types.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#_RaiseInvalidWireType">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_FieldSkipper"></a><span class="summary-sig-name">_FieldSkipper</span>()</span><br />
+      Constructs the SkipField function.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#_FieldSkipper">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.decoder-module.html#SkipField" class="summary-sig-name">SkipField</a>(<span class="summary-sig-arg">buffer</span>,
+        <span class="summary-sig-arg">pos</span>,
+        <span class="summary-sig-arg">end</span>,
+        <span class="summary-sig-arg">tag_bytes</span>)</span><br />
+      Skips a field with the specified tag.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#SkipField">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_POS_INF"></a><span class="summary-name">_POS_INF</span> = <code title="inf">inf</code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_NEG_INF"></a><span class="summary-name">_NEG_INF</span> = <code title="-inf">-inf</code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_NAN"></a><span class="summary-name">_NAN</span> = <code title="nan">nan</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="MESSAGE_SET_ITEM_TAG"></a><span class="summary-name">MESSAGE_SET_ITEM_TAG</span> = <code title="'\x0b'"><code class="variable-quote">'</code><code class="variable-string">\x0b</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'protobuf.internal'"><code class="variable-quote">'</code><code class="variable-string">protobuf.internal</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="_VarintDecoder"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_VarintDecoder</span>(<span class="sig-arg">mask</span>,
+        <span class="sig-arg">result_type</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#_VarintDecoder">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Return an encoder for a basic varint value (does not include tag).</p>
+  <p>Decoded values will be bitwise-anded with the given mask before being 
+  returned, e.g. to limit them to 32 bits.  The returned decoder does not 
+  take the usual &quot;end&quot; parameter -- the caller is expected to do 
+  bounds checking after the fact (often the caller can defer such checking 
+  until later).  The decoder returns a (value, new_pos) pair.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="ReadTag"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">ReadTag</span>(<span class="sig-arg">buffer</span>,
+        <span class="sig-arg">pos</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#ReadTag">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Read a tag from the buffer, and return a (tag_bytes, new_pos) 
+  tuple.</p>
+  <p>We return the raw bytes of the tag rather than decoding them.  The raw
+  bytes can then be used to look up the proper decoder.  This effectively 
+  allows us to trade some work that would be done in pure-python (decoding 
+  a varint) for work that is done in C (searching for a byte string in a 
+  hash table). In a low-level language it would be much cheaper to decode 
+  the varint and use that, but not in Python.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_SimpleDecoder"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_SimpleDecoder</span>(<span class="sig-arg">wire_type</span>,
+        <span class="sig-arg">decode_value</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#_SimpleDecoder">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Return a constructor for a decoder for fields of a particular type.
+
+Args:
+    wire_type:  The field's wire type.
+    decode_value:  A function which decodes an individual value, e.g.
+      _DecodeVarint()
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_ModifiedDecoder"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_ModifiedDecoder</span>(<span class="sig-arg">wire_type</span>,
+        <span class="sig-arg">decode_value</span>,
+        <span class="sig-arg">modify_value</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#_ModifiedDecoder">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Like SimpleDecoder but additionally invokes modify_value on every 
+  value before storing it.  Usually modify_value is ZigZagDecode.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_StructPackDecoder"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_StructPackDecoder</span>(<span class="sig-arg">wire_type</span>,
+        <span class="sig-arg">format</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#_StructPackDecoder">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Return a constructor for a decoder for a fixed-width field.
+
+Args:
+    wire_type:  The field's wire type.
+    format:  The format string to pass to struct.unpack().
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_FloatDecoder"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_FloatDecoder</span>()</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#_FloatDecoder">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns a decoder for a float field.</p>
+  <p>This code works around a bug in struct.unpack for non-finite 32-bit 
+  floating-point values.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_DoubleDecoder"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_DoubleDecoder</span>()</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#_DoubleDecoder">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns a decoder for a double field.</p>
+  <p>This code works around a bug in struct.unpack for not-a-number.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="MessageSetItemDecoder"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">MessageSetItemDecoder</span>(<span class="sig-arg">extensions_by_number</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#MessageSetItemDecoder">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Returns a decoder for a MessageSet item.
+
+The parameter is the _extensions_by_number map for the message class.
+
+The message set message looks like this:
+  message MessageSet {
+    repeated group Item = 1 {
+      required int32 type_id = 2;
+      required string message = 3;
+    }
+  }
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_SkipVarint"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_SkipVarint</span>(<span class="sig-arg">buffer</span>,
+        <span class="sig-arg">pos</span>,
+        <span class="sig-arg">end</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#_SkipVarint">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Skip a varint value.  Returns the new position.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_SkipFixed64"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_SkipFixed64</span>(<span class="sig-arg">buffer</span>,
+        <span class="sig-arg">pos</span>,
+        <span class="sig-arg">end</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#_SkipFixed64">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Skip a fixed64 value.  Returns the new position.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_SkipLengthDelimited"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_SkipLengthDelimited</span>(<span class="sig-arg">buffer</span>,
+        <span class="sig-arg">pos</span>,
+        <span class="sig-arg">end</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#_SkipLengthDelimited">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Skip a length-delimited value.  Returns the new position.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_SkipGroup"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_SkipGroup</span>(<span class="sig-arg">buffer</span>,
+        <span class="sig-arg">pos</span>,
+        <span class="sig-arg">end</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#_SkipGroup">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Skip sub-group.  Returns the new position.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_SkipFixed32"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_SkipFixed32</span>(<span class="sig-arg">buffer</span>,
+        <span class="sig-arg">pos</span>,
+        <span class="sig-arg">end</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#_SkipFixed32">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Skip a fixed32 value.  Returns the new position.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_RaiseInvalidWireType"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_RaiseInvalidWireType</span>(<span class="sig-arg">buffer</span>,
+        <span class="sig-arg">pos</span>,
+        <span class="sig-arg">end</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#_RaiseInvalidWireType">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Skip function for unknown wire types.  Raises an exception.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="SkipField"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">SkipField</span>(<span class="sig-arg">buffer</span>,
+        <span class="sig-arg">pos</span>,
+        <span class="sig-arg">end</span>,
+        <span class="sig-arg">tag_bytes</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.decoder-pysrc.html#SkipField">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Skips a field with the specified tag.
+
+|pos| should point to the byte immediately after the tag.
+
+Returns:
+    The new position (after the tag value), or -1 if the tag is an end-group
+    tag (in which case the calling loop should break).
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="protobuf-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Thu Dec 22 11:11:38 2016
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

@@ -1,0 +1,894 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>protobuf.internal.wire_format</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="protobuf-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="protobuf-module.html">Package&nbsp;protobuf</a> ::
+        <a href="protobuf.internal-module.html">Package&nbsp;internal</a> ::
+        Module&nbsp;wire_format
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="protobuf.internal.wire_format-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module wire_format</h1><p class="nomargin-top"><span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html">source&nbsp;code</a></span></p>
+<p>Constants and static functions to support protocol buffer wire 
+  format.</p>
+
+<hr />
+<div class="fields">      <p><strong>Author:</strong>
+        robinson@google.com (Will Robinson)
+      </p>
+</div><!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.wire_format-module.html#PackTag" class="summary-sig-name">PackTag</a>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">wire_type</span>)</span><br />
+      Returns an unsigned 32-bit integer that encodes the field number and
+wire type information in standard protocol message wire format.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#PackTag">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.wire_format-module.html#UnpackTag" class="summary-sig-name">UnpackTag</a>(<span class="summary-sig-arg">tag</span>)</span><br />
+      The inverse of PackTag().</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#UnpackTag">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.wire_format-module.html#ZigZagEncode" class="summary-sig-name">ZigZagEncode</a>(<span class="summary-sig-arg">value</span>)</span><br />
+      ZigZag Transform:  Encodes signed integers so that they can be 
+      effectively used with varint encoding.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#ZigZagEncode">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="ZigZagDecode"></a><span class="summary-sig-name">ZigZagDecode</span>(<span class="summary-sig-arg">value</span>)</span><br />
+      Inverse of ZigZagEncode().</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#ZigZagDecode">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="Int32ByteSize"></a><span class="summary-sig-name">Int32ByteSize</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">int32</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#Int32ByteSize">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="Int32ByteSizeNoTag"></a><span class="summary-sig-name">Int32ByteSizeNoTag</span>(<span class="summary-sig-arg">int32</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#Int32ByteSizeNoTag">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="Int64ByteSize"></a><span class="summary-sig-name">Int64ByteSize</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">int64</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#Int64ByteSize">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="UInt32ByteSize"></a><span class="summary-sig-name">UInt32ByteSize</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">uint32</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#UInt32ByteSize">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="UInt64ByteSize"></a><span class="summary-sig-name">UInt64ByteSize</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">uint64</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#UInt64ByteSize">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="SInt32ByteSize"></a><span class="summary-sig-name">SInt32ByteSize</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">int32</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#SInt32ByteSize">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="SInt64ByteSize"></a><span class="summary-sig-name">SInt64ByteSize</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">int64</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#SInt64ByteSize">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="Fixed32ByteSize"></a><span class="summary-sig-name">Fixed32ByteSize</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">fixed32</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#Fixed32ByteSize">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="Fixed64ByteSize"></a><span class="summary-sig-name">Fixed64ByteSize</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">fixed64</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#Fixed64ByteSize">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="SFixed32ByteSize"></a><span class="summary-sig-name">SFixed32ByteSize</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">sfixed32</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#SFixed32ByteSize">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="SFixed64ByteSize"></a><span class="summary-sig-name">SFixed64ByteSize</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">sfixed64</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#SFixed64ByteSize">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="FloatByteSize"></a><span class="summary-sig-name">FloatByteSize</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">flt</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#FloatByteSize">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="DoubleByteSize"></a><span class="summary-sig-name">DoubleByteSize</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">double</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#DoubleByteSize">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="BoolByteSize"></a><span class="summary-sig-name">BoolByteSize</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">b</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#BoolByteSize">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="EnumByteSize"></a><span class="summary-sig-name">EnumByteSize</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">enum</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#EnumByteSize">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="StringByteSize"></a><span class="summary-sig-name">StringByteSize</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">string</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#StringByteSize">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="BytesByteSize"></a><span class="summary-sig-name">BytesByteSize</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">b</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#BytesByteSize">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="GroupByteSize"></a><span class="summary-sig-name">GroupByteSize</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">message</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#GroupByteSize">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="MessageByteSize"></a><span class="summary-sig-name">MessageByteSize</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">message</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#MessageByteSize">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="MessageSetItemByteSize"></a><span class="summary-sig-name">MessageSetItemByteSize</span>(<span class="summary-sig-arg">field_number</span>,
+        <span class="summary-sig-arg">msg</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#MessageSetItemByteSize">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="TagByteSize"></a><span class="summary-sig-name">TagByteSize</span>(<span class="summary-sig-arg">field_number</span>)</span><br />
+      Returns the bytes required to serialize a tag with this field number.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#TagByteSize">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.wire_format-module.html#_VarUInt64ByteSizeNoTag" class="summary-sig-name" onclick="show_private();">_VarUInt64ByteSizeNoTag</a>(<span class="summary-sig-arg">uint64</span>)</span><br />
+      Returns the number of bytes required to serialize a single varint 
+      using boundary value comparisons.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#_VarUInt64ByteSizeNoTag">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="protobuf.internal.wire_format-module.html#IsTypePackable" class="summary-sig-name">IsTypePackable</a>(<span class="summary-sig-arg">field_type</span>)</span><br />
+      Return true iff packable = true is valid for fields of this type.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#IsTypePackable">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="TAG_TYPE_BITS"></a><span class="summary-name">TAG_TYPE_BITS</span> = <code title="3">3</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="TAG_TYPE_MASK"></a><span class="summary-name">TAG_TYPE_MASK</span> = <code title="7">7</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="WIRETYPE_VARINT"></a><span class="summary-name">WIRETYPE_VARINT</span> = <code title="0">0</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="WIRETYPE_FIXED64"></a><span class="summary-name">WIRETYPE_FIXED64</span> = <code title="1">1</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="WIRETYPE_LENGTH_DELIMITED"></a><span class="summary-name">WIRETYPE_LENGTH_DELIMITED</span> = <code title="2">2</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="WIRETYPE_START_GROUP"></a><span class="summary-name">WIRETYPE_START_GROUP</span> = <code title="3">3</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="WIRETYPE_END_GROUP"></a><span class="summary-name">WIRETYPE_END_GROUP</span> = <code title="4">4</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="WIRETYPE_FIXED32"></a><span class="summary-name">WIRETYPE_FIXED32</span> = <code title="5">5</code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_WIRETYPE_MAX"></a><span class="summary-name">_WIRETYPE_MAX</span> = <code title="5">5</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="INT32_MAX"></a><span class="summary-name">INT32_MAX</span> = <code title="2147483647">2147483647</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="INT32_MIN"></a><span class="summary-name">INT32_MIN</span> = <code title="-2147483648">-2147483648</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="UINT32_MAX"></a><span class="summary-name">UINT32_MAX</span> = <code title="4294967295">4294967295</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="INT64_MAX"></a><span class="summary-name">INT64_MAX</span> = <code title="9223372036854775807">9223372036854775807</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="INT64_MIN"></a><span class="summary-name">INT64_MIN</span> = <code title="-9223372036854775808">-9223372036854775808</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="UINT64_MAX"></a><span class="summary-name">UINT64_MAX</span> = <code title="18446744073709551615">18446744073709551615</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="FORMAT_UINT32_LITTLE_ENDIAN"></a><span class="summary-name">FORMAT_UINT32_LITTLE_ENDIAN</span> = <code title="'&lt;I'"><code class="variable-quote">'</code><code class="variable-string">&lt;I</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="FORMAT_UINT64_LITTLE_ENDIAN"></a><span class="summary-name">FORMAT_UINT64_LITTLE_ENDIAN</span> = <code title="'&lt;Q'"><code class="variable-quote">'</code><code class="variable-string">&lt;Q</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="FORMAT_FLOAT_LITTLE_ENDIAN"></a><span class="summary-name">FORMAT_FLOAT_LITTLE_ENDIAN</span> = <code title="'&lt;f'"><code class="variable-quote">'</code><code class="variable-string">&lt;f</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="FORMAT_DOUBLE_LITTLE_ENDIAN"></a><span class="summary-name">FORMAT_DOUBLE_LITTLE_ENDIAN</span> = <code title="'&lt;d'"><code class="variable-quote">'</code><code class="variable-string">&lt;d</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="NON_PACKABLE_TYPES"></a><span class="summary-name">NON_PACKABLE_TYPES</span> = <code title="(9, 10, 11, 12)"><code class="variable-group">(</code>9<code class="variable-op">, </code>10<code class="variable-op">, </code>11<code class="variable-op">, </code>12<code class="variable-group">)</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="__package__"></a><span class="summary-name">__package__</span> = <code title="'protobuf.internal'"><code class="variable-quote">'</code><code class="variable-string">protobuf.internal</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="PackTag"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">PackTag</span>(<span class="sig-arg">field_number</span>,
+        <span class="sig-arg">wire_type</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#PackTag">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Returns an unsigned 32-bit integer that encodes the field number and
+wire type information in standard protocol message wire format.
+
+Args:
+  field_number: Expected to be an integer in the range [1, 1 &lt;&lt; 29)
+  wire_type: One of the WIRETYPE_* constants.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="UnpackTag"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">UnpackTag</span>(<span class="sig-arg">tag</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#UnpackTag">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>The inverse of PackTag().  Given an unsigned 32-bit number, returns a 
+  (field_number, wire_type) tuple.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="ZigZagEncode"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">ZigZagEncode</span>(<span class="sig-arg">value</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#ZigZagEncode">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>ZigZag Transform:  Encodes signed integers so that they can be 
+  effectively used with varint encoding.  See wire_format.h for more 
+  details.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_VarUInt64ByteSizeNoTag"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_VarUInt64ByteSizeNoTag</span>(<span class="sig-arg">uint64</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#_VarUInt64ByteSizeNoTag">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns the number of bytes required to serialize a single varint 
+  using boundary value comparisons. (unrolled loop optimization -WPierce) 
+  uint64 must be unsigned.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="IsTypePackable"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">IsTypePackable</span>(<span class="sig-arg">field_type</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="protobuf.internal.wire_format-pysrc.html#IsTypePackable">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+Return true iff packable = true is valid for fields of this type.
+
+Args:
+  field_type: a FieldDescriptor::Type value.
+
+Returns:
+  True iff fields of this type are packable.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="protobuf-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Thu Dec 22 11:11:38 2016
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

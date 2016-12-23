@@ -14,6 +14,9 @@
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
   <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="protobuf-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
 
   <!-- Tree link -->
       <th bgcolor="#70b0f0" class="navbar-select"
@@ -52,118 +55,414 @@
 </b></center><br />
 <h1 class="epydoc">Class Hierarchy</h1>
 <ul class="nomargin-top">
+    <li> <strong class="uidlink">google.protobuf.pyext._message.MessageMeta</strong>
+    </li>
+    <li> <strong class="uidlink">unittest.TestCase</strong>
+    </li>
+    <li> <strong class="uidlink">unittest.TestCase</strong>
+    </li>
+    <li> <strong class="uidlink">unittest.TestCase</strong>
+    </li>
+    <li> <strong class="uidlink">unittest.TestCase</strong>
+    </li>
+    <li> <strong class="uidlink">unittest.TestCase</strong>
+    </li>
+    <li> <strong class="uidlink">unittest.TestCase</strong>
+    </li>
+    <li> <strong class="uidlink">unittest.TestCase</strong>
+    </li>
+    <li> <strong class="uidlink">unittest.TestCase</strong>
+    </li>
+    <li> <strong class="uidlink">unittest.TestCase</strong>
+    </li>
+    <li> <strong class="uidlink">unittest.TestCase</strong>
+    </li>
+    <li> <strong class="uidlink">unittest.TestCase</strong>
+    </li>
+    <li> <strong class="uidlink">unittest.TestCase</strong>
+    </li>
+    <li> <strong class="uidlink">unittest.TestCase</strong>
+    </li>
     <li> <strong class="uidlink">object</strong>:
       <em class="summary">The most base type</em>
     <ul>
+    <li> <strong class="uidlink"><a href="protobuf.internal.well_known_types.Any-class.html">protobuf.internal.well_known_types.Any</a></strong>:
+      <em class="summary">Class for Any Message type.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.containers.BaseContainer-class.html">protobuf.internal.containers.BaseContainer</a></strong>:
+      <em class="summary">Base container class.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="protobuf.internal.containers.RepeatedCompositeFieldContainer-class.html">protobuf.internal.containers.RepeatedCompositeFieldContainer</a></strong>:
+      <em class="summary">Simple, list-like container for holding repeated composite fields.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.containers.RepeatedScalarFieldContainer-class.html">protobuf.internal.containers.RepeatedScalarFieldContainer</a></strong>:
+      <em class="summary">Simple, type-checked, list-like container for holding repeated 
+        scalars.</em>
+    </li>
+    </ul>
+    </li>
     <li> <strong class="uidlink">exceptions.BaseException</strong>:
       <em class="summary">Common base class for all exceptions</em>
     <ul>
     <li> <strong class="uidlink">exceptions.Exception</strong>:
       <em class="summary">Common base class for all non-exit exceptions.</em>
     <ul>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor.Error-class.html">google.protobuf.descriptor.Error</a></strong>:
+    <li> <strong class="uidlink"><a href="protobuf.descriptor_database.Error-class.html">protobuf.descriptor_database.Error</a></strong>
+    <ul>
+    <li> <strong class="uidlink"><a href="protobuf.descriptor_database.DescriptorDatabaseConflictingDefinitionError-class.html">protobuf.descriptor_database.DescriptorDatabaseConflictingDefinitionError</a></strong>:
+      <em class="summary">Raised when a proto is added with the same name &amp; different 
+        descriptor.</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.descriptor.Error-class.html">protobuf.descriptor.Error</a></strong>:
       <em class="summary">Base error for this module.</em>
     <ul>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor.TypeTransformationError-class.html">google.protobuf.descriptor.TypeTransformationError</a></strong>:
+    <li> <strong class="uidlink"><a href="protobuf.descriptor.TypeTransformationError-class.html">protobuf.descriptor.TypeTransformationError</a></strong>:
       <em class="summary">Error transforming between python proto type and corresponding C++ 
         type.</em>
     </li>
     </ul>
     </li>
+    <li> <strong class="uidlink"><a href="protobuf.message.Error-class.html">protobuf.message.Error</a></strong>
+    <ul>
+    <li> <strong class="uidlink"><a href="protobuf.message.DecodeError-class.html">protobuf.message.DecodeError</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.message.EncodeError-class.html">protobuf.message.EncodeError</a></strong>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.json_format.Error-class.html">protobuf.json_format.Error</a></strong>:
+      <em class="summary">Top-level module error for json_format.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="protobuf.json_format.ParseError-class.html">protobuf.json_format.ParseError</a></strong>:
+      <em class="summary">Thrown in case of parsing error.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.json_format.SerializeToJsonError-class.html">protobuf.json_format.SerializeToJsonError</a></strong>:
+      <em class="summary">Thrown if serialization to JSON fails.</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.well_known_types.Error-class.html">protobuf.internal.well_known_types.Error</a></strong>:
+      <em class="summary">Top-level module error.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="protobuf.internal.well_known_types.ParseError-class.html">protobuf.internal.well_known_types.ParseError</a></strong>:
+      <em class="summary">Thrown in case of parsing error.</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.text_format.Error-class.html" onclick="show_private();">protobuf.text_format.Error</a></strong>:
+      <em class="summary">Top-level module error for text_format.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="protobuf.text_format.ParseError-class.html" onclick="show_private();">protobuf.text_format.ParseError</a></strong>:
+      <em class="summary">Thrown in case of text parsing or tokenizing error.</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.service.RpcException-class.html">protobuf.service.RpcException</a></strong>:
+      <em class="summary">Exception raised on failed blocking RPC method call.</em>
+    </li>
+    <li> <strong class="uidlink">exceptions.StandardError</strong>:
+      <em class="summary">Base class for all standard Python exceptions that do not represent
+        interpreter exiting.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="exceptions.AssertionError-class.html">exceptions.AssertionError</a></strong>:
+      <em class="summary">Assertion failed.</em>
+    </li>
+    </ul>
+    </li>
     </ul>
     </li>
     </ul>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor.DescriptorBase-class.html">google.protobuf.descriptor.DescriptorBase</a></strong>:
+    <li> <strong class="uidlink"><a href="protobuf.descriptor.DescriptorBase-class.html">protobuf.descriptor.DescriptorBase</a></strong>:
       <em class="summary">Descriptors base class.</em>
     <ul>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor.EnumValueDescriptor-class.html">google.protobuf.descriptor.EnumValueDescriptor</a></strong>:
+    <li> <strong class="uidlink"><a href="protobuf.descriptor.EnumValueDescriptor-class.html">protobuf.descriptor.EnumValueDescriptor</a></strong>:
       <em class="summary">Descriptor for a single value within an enum.</em>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor.FieldDescriptor-class.html">google.protobuf.descriptor.FieldDescriptor</a></strong>:
+    <li> <strong class="uidlink"><a href="protobuf.descriptor.FieldDescriptor-class.html">protobuf.descriptor.FieldDescriptor</a></strong>:
       <em class="summary">Descriptor for a single field in a .proto file.</em>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor.FileDescriptor-class.html">google.protobuf.descriptor.FileDescriptor</a></strong>:
+    <li> <strong class="uidlink"><a href="protobuf.descriptor.FileDescriptor-class.html">protobuf.descriptor.FileDescriptor</a></strong>:
       <em class="summary">Descriptor for a file.</em>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor.MethodDescriptor-class.html">google.protobuf.descriptor.MethodDescriptor</a></strong>:
+    <li> <strong class="uidlink"><a href="protobuf.descriptor.MethodDescriptor-class.html">protobuf.descriptor.MethodDescriptor</a></strong>:
       <em class="summary">Descriptor for a method in a service.</em>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor.OneofDescriptor-class.html">google.protobuf.descriptor.OneofDescriptor</a></strong>:
+    <li> <strong class="uidlink"><a href="protobuf.descriptor.OneofDescriptor-class.html">protobuf.descriptor.OneofDescriptor</a></strong>:
       <em class="summary">Descriptor for a oneof field.</em>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor._NestedDescriptorBase-class.html" onclick="show_private();">google.protobuf.descriptor._NestedDescriptorBase</a></strong>:
+    <li> <strong class="uidlink"><a href="protobuf.descriptor._NestedDescriptorBase-class.html" onclick="show_private();">protobuf.descriptor._NestedDescriptorBase</a></strong>:
       <em class="summary">Common class for descriptors that can be nested.</em>
     <ul>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor.Descriptor-class.html">google.protobuf.descriptor.Descriptor</a></strong>:
+    <li> <strong class="uidlink"><a href="protobuf.descriptor.Descriptor-class.html">protobuf.descriptor.Descriptor</a></strong>:
       <em class="summary">Descriptor for a protocol message type.</em>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor.EnumDescriptor-class.html">google.protobuf.descriptor.EnumDescriptor</a></strong>:
+    <li> <strong class="uidlink"><a href="protobuf.descriptor.EnumDescriptor-class.html">protobuf.descriptor.EnumDescriptor</a></strong>:
       <em class="summary">Descriptor for an enum defined in a .proto file.</em>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor.ServiceDescriptor-class.html">google.protobuf.descriptor.ServiceDescriptor</a></strong>:
+    <li> <strong class="uidlink"><a href="protobuf.descriptor.ServiceDescriptor-class.html">protobuf.descriptor.ServiceDescriptor</a></strong>:
       <em class="summary">Descriptor for a service.</em>
     </li>
     </ul>
     </li>
     </ul>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor_pool.DescriptorPool-class.html">google.protobuf.descriptor_pool.DescriptorPool</a></strong>:
+    <li> <strong class="uidlink"><a href="protobuf.descriptor_database.DescriptorDatabase-class.html">protobuf.descriptor_database.DescriptorDatabase</a></strong>:
+      <em class="summary">A container accepting FileDescriptorProtos and maps 
+        DescriptorProtos.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.descriptor_pool.DescriptorPool-class.html">protobuf.descriptor_pool.DescriptorPool</a></strong>:
       <em class="summary">A collection of protobufs dynamically constructed by descriptor 
         protos.</em>
     </li>
-    <li> <strong class="uidlink">google.protobuf.message.Message</strong>:
-      <em class="summary">Abstract base class for protocol messages.</em>
+    <li> <strong class="uidlink"><a href="protobuf.internal.well_known_types.Duration-class.html">protobuf.internal.well_known_types.Duration</a></strong>:
+      <em class="summary">Class for Duration message type.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.descriptor_pool_test.EnumField-class.html">protobuf.internal.descriptor_pool_test.EnumField</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.descriptor_pool_test.EnumType-class.html">protobuf.internal.descriptor_pool_test.EnumType</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.enum_type_wrapper.EnumTypeWrapper-class.html">protobuf.internal.enum_type_wrapper.EnumTypeWrapper</a></strong>:
+      <em class="summary">A utility for finding the names of enum values.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.type_checkers.EnumValueChecker-class.html">protobuf.internal.type_checkers.EnumValueChecker</a></strong>:
+      <em class="summary">Checker used for enum fields.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.descriptor_pool_test.ExtensionField-class.html">protobuf.internal.descriptor_pool_test.ExtensionField</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.well_known_types.FieldMask-class.html">protobuf.internal.well_known_types.FieldMask</a></strong>:
+      <em class="summary">Class for FieldMask message type.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.type_checkers.IntValueChecker-class.html">protobuf.internal.type_checkers.IntValueChecker</a></strong>:
+      <em class="summary">Checker used for integer fields.</em>
     <ul>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor_pb2.GeneratedCodeInfo.Annotation-class.html">google.protobuf.descriptor_pb2.GeneratedCodeInfo.Annotation</a></strong>
+    <li> <strong class="uidlink"><a href="protobuf.internal.type_checkers.Int32ValueChecker-class.html">protobuf.internal.type_checkers.Int32ValueChecker</a></strong>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor_pb2.DescriptorProto-class.html">google.protobuf.descriptor_pb2.DescriptorProto</a></strong>
+    <li> <strong class="uidlink"><a href="protobuf.internal.type_checkers.Int64ValueChecker-class.html">protobuf.internal.type_checkers.Int64ValueChecker</a></strong>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor_pb2.EnumDescriptorProto-class.html">google.protobuf.descriptor_pb2.EnumDescriptorProto</a></strong>
+    <li> <strong class="uidlink"><a href="protobuf.internal.type_checkers.Uint32ValueChecker-class.html">protobuf.internal.type_checkers.Uint32ValueChecker</a></strong>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor_pb2.EnumOptions-class.html">google.protobuf.descriptor_pb2.EnumOptions</a></strong>
+    <li> <strong class="uidlink"><a href="protobuf.internal.type_checkers.Uint64ValueChecker-class.html">protobuf.internal.type_checkers.Uint64ValueChecker</a></strong>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor_pb2.EnumValueDescriptorProto-class.html">google.protobuf.descriptor_pb2.EnumValueDescriptorProto</a></strong>
+    </ul>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor_pb2.EnumValueOptions-class.html">google.protobuf.descriptor_pb2.EnumValueOptions</a></strong>
+    <li> <strong class="uidlink"><a href="protobuf.internal.well_known_types.ListValue-class.html">protobuf.internal.well_known_types.ListValue</a></strong>:
+      <em class="summary">Class for ListValue message type.</em>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor_pb2.DescriptorProto.ExtensionRange-class.html">google.protobuf.descriptor_pb2.DescriptorProto.ExtensionRange</a></strong>
+    <li> <strong class="uidlink"><a href="protobuf.internal.containers.Mapping-class.html">protobuf.internal.containers.Mapping</a></strong>
+    <ul>
+    <li> <strong class="uidlink"><a href="protobuf.internal.containers.MutableMapping-class.html">protobuf.internal.containers.MutableMapping</a></strong>
+    <ul>
+    <li> <strong class="uidlink"><a href="protobuf.internal.containers.MessageMap-class.html">protobuf.internal.containers.MessageMap</a></strong>:
+      <em class="summary">Simple, type-checked, dict-like container for with submessage 
+        values.</em>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor_pb2.FieldDescriptorProto-class.html">google.protobuf.descriptor_pb2.FieldDescriptorProto</a></strong>
+    <li> <strong class="uidlink"><a href="protobuf.internal.containers.ScalarMap-class.html">protobuf.internal.containers.ScalarMap</a></strong>:
+      <em class="summary">Simple, type-checked, dict-like container for holding repeated 
+        scalars.</em>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor_pb2.FieldOptions-class.html">google.protobuf.descriptor_pb2.FieldOptions</a></strong>
+    </ul>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor_pb2.FileDescriptorProto-class.html">google.protobuf.descriptor_pb2.FileDescriptorProto</a></strong>
+    </ul>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor_pb2.FileDescriptorSet-class.html">google.protobuf.descriptor_pb2.FileDescriptorSet</a></strong>
+    <li> <strong class="uidlink"><a href="protobuf.message.Message-class.html">protobuf.message.Message</a></strong>:
+      <em class="summary">Abstract base class for protocol messages.</em>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor_pb2.FileOptions-class.html">google.protobuf.descriptor_pb2.FileOptions</a></strong>
+    <li> <strong class="uidlink">google.protobuf.message_factory.MessageFactory</strong>:
+      <em class="summary">Factory for creating Proto2 messages from descriptors in a pool.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="protobuf.symbol_database.SymbolDatabase-class.html">protobuf.symbol_database.SymbolDatabase</a></strong>:
+      <em class="summary">A database of Python generated symbols.</em>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor_pb2.GeneratedCodeInfo-class.html">google.protobuf.descriptor_pb2.GeneratedCodeInfo</a></strong>
+    </ul>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor_pb2.SourceCodeInfo.Location-class.html">google.protobuf.descriptor_pb2.SourceCodeInfo.Location</a></strong>
+    <li> <strong class="uidlink"><a href="protobuf.message_factory.MessageFactory-class.html">protobuf.message_factory.MessageFactory</a></strong>:
+      <em class="summary">Factory for creating Proto2 messages from descriptors in a pool.</em>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor_pb2.MessageOptions-class.html">google.protobuf.descriptor_pb2.MessageOptions</a></strong>
+    <li> <strong class="uidlink"><a href="protobuf.internal.descriptor_pool_test.MessageField-class.html">protobuf.internal.descriptor_pool_test.MessageField</a></strong>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor_pb2.MethodDescriptorProto-class.html">google.protobuf.descriptor_pb2.MethodDescriptorProto</a></strong>
+    <li> <strong class="uidlink"><a href="protobuf.internal.message_listener.MessageListener-class.html">protobuf.internal.message_listener.MessageListener</a></strong>:
+      <em class="summary">Listens for modifications made to a message.</em>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor_pb2.MethodOptions-class.html">google.protobuf.descriptor_pb2.MethodOptions</a></strong>
+    <li> <strong class="uidlink"><a href="protobuf.internal.descriptor_pool_test.MessageType-class.html">protobuf.internal.descriptor_pool_test.MessageType</a></strong>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor_pb2.UninterpretedOption.NamePart-class.html">google.protobuf.descriptor_pb2.UninterpretedOption.NamePart</a></strong>
+    <li> <strong class="uidlink"><a href="protobuf.internal.message_listener.NullMessageListener-class.html">protobuf.internal.message_listener.NullMessageListener</a></strong>:
+      <em class="summary">No-op MessageListener implementation.</em>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor_pb2.OneofDescriptorProto-class.html">google.protobuf.descriptor_pb2.OneofDescriptorProto</a></strong>
+    <li> <strong class="uidlink"><a href="protobuf.internal.descriptor_pool_test.ProtoFile-class.html">protobuf.internal.descriptor_pool_test.ProtoFile</a></strong>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor_pb2.OneofOptions-class.html">google.protobuf.descriptor_pb2.OneofOptions</a></strong>
+    <li> <strong class="uidlink"><a href="protobuf.service.RpcChannel-class.html">protobuf.service.RpcChannel</a></strong>:
+      <em class="summary">Abstract interface for an RPC channel.</em>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor_pb2.DescriptorProto.ReservedRange-class.html">google.protobuf.descriptor_pb2.DescriptorProto.ReservedRange</a></strong>
+    <li> <strong class="uidlink"><a href="protobuf.service.RpcController-class.html">protobuf.service.RpcController</a></strong>:
+      <em class="summary">An RpcController mediates a single method call.</em>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor_pb2.ServiceDescriptorProto-class.html">google.protobuf.descriptor_pb2.ServiceDescriptorProto</a></strong>
+    <li> <strong class="uidlink"><a href="protobuf.service.Service-class.html">protobuf.service.Service</a></strong>:
+      <em class="summary">Abstract base interface for protocol-buffer-based RPC services.</em>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor_pb2.ServiceOptions-class.html">google.protobuf.descriptor_pb2.ServiceOptions</a></strong>
+    <li> <strong class="uidlink"><a href="protobuf.internal.descriptor_pool_test.StringField-class.html">protobuf.internal.descriptor_pool_test.StringField</a></strong>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor_pb2.SourceCodeInfo-class.html">google.protobuf.descriptor_pb2.SourceCodeInfo</a></strong>
+    <li> <strong class="uidlink"><a href="protobuf.internal.well_known_types.Struct-class.html">protobuf.internal.well_known_types.Struct</a></strong>:
+      <em class="summary">Class for Struct message type.</em>
     </li>
-    <li> <strong class="uidlink"><a href="google.protobuf.descriptor_pb2.UninterpretedOption-class.html">google.protobuf.descriptor_pb2.UninterpretedOption</a></strong>
+    <li> <strong class="uidlink">unittest.case.TestCase</strong>:
+      <em class="summary">A class whose instances are single test cases.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="protobuf.internal.well_known_types_test.AnyTest-class.html">protobuf.internal.well_known_types_test.AnyTest</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.descriptor_database_test.DescriptorDatabaseTest-class.html">protobuf.internal.descriptor_database_test.DescriptorDatabaseTest</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.well_known_types_test.FieldMaskTest-class.html">protobuf.internal.well_known_types_test.FieldMaskTest</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.service_reflection_test.FooUnitTest-class.html">protobuf.internal.service_reflection_test.FooUnitTest</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.json_format_test.JsonFormatBase-class.html">protobuf.internal.json_format_test.JsonFormatBase</a></strong>
+    <ul>
+    <li> <strong class="uidlink"><a href="protobuf.internal.json_format_test.JsonFormatTest-class.html">protobuf.internal.json_format_test.JsonFormatTest</a></strong>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.message_factory_test.MessageFactoryTest-class.html">protobuf.internal.message_factory_test.MessageFactoryTest</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.message_test.MessageTest-class.html">protobuf.internal.message_test.MessageTest</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.message_test.OversizeProtosTest-class.html">protobuf.internal.message_test.OversizeProtosTest</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.message_test.PackedFieldTest-class.html">protobuf.internal.message_test.PackedFieldTest</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal._parameterized.ParameterizedTestCase-class.html">protobuf.internal._parameterized.ParameterizedTestCase</a></strong>:
+      <em class="summary">Base class for test cases using the Parameters decorator.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.message_test.Proto2Test-class.html">protobuf.internal.message_test.Proto2Test</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.message_test.Proto3Test-class.html">protobuf.internal.message_test.Proto3Test</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.proto_builder_test.ProtoBuilderTest-class.html">protobuf.internal.proto_builder_test.ProtoBuilderTest</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.testing_refleaks.ReferenceLeakCheckerTestCase-class.html">protobuf.internal.testing_refleaks.ReferenceLeakCheckerTestCase</a></strong>:
+      <em class="summary">A TestCase which runs tests multiple times, collecting reference 
+        counts.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.well_known_types_test.StructTest-class.html">protobuf.internal.well_known_types_test.StructTest</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.symbol_database_test.SymbolDatabaseTest-class.html">protobuf.internal.symbol_database_test.SymbolDatabaseTest</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.text_encoding_test.TextEncodingTestCase-class.html">protobuf.internal.text_encoding_test.TextEncodingTestCase</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.well_known_types_test.TimeUtilTestBase-class.html">protobuf.internal.well_known_types_test.TimeUtilTestBase</a></strong>
+    <ul>
+    <li> <strong class="uidlink"><a href="protobuf.internal.well_known_types_test.TimeUtilTest-class.html">protobuf.internal.well_known_types_test.TimeUtilTest</a></strong>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.message_test.ValidTypeNamesTest-class.html">protobuf.internal.message_test.ValidTypeNamesTest</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.wire_format_test.WireFormatTest-class.html">protobuf.internal.wire_format_test.WireFormatTest</a></strong>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.message_test.MessageTest.TestIterable-class.html">protobuf.internal.message_test.MessageTest.TestIterable</a></strong>:
+      <em class="summary">This iterable object mimics the behavior of numpy.array.</em>
+    </li>
+    <li> <strong class="uidlink">unittest.result.TestResult</strong>:
+      <em class="summary">Holder for test result information.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="protobuf.internal.testing_refleaks.LocalTestResult-class.html">protobuf.internal.testing_refleaks.LocalTestResult</a></strong>:
+      <em class="summary">A TestResult which forwards events to a parent object, except for 
+        Skips.</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.text_format.TextWriter-class.html" onclick="show_private();">protobuf.text_format.TextWriter</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.well_known_types.Timestamp-class.html">protobuf.internal.well_known_types.Timestamp</a></strong>:
+      <em class="summary">Class for Timestamp message type.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.text_format.Tokenizer-class.html" onclick="show_private();">protobuf.text_format.Tokenizer</a></strong>:
+      <em class="summary">Protocol buffer text representation tokenizer.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.type_checkers.TypeChecker-class.html">protobuf.internal.type_checkers.TypeChecker</a></strong>:
+      <em class="summary">Type checker used to catch type errors as early as possible when 
+        the client is setting scalar fields in protocol messages.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="protobuf.internal.type_checkers.TypeCheckerWithDefault-class.html">protobuf.internal.type_checkers.TypeCheckerWithDefault</a></strong>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.type_checkers.UnicodeValueChecker-class.html">protobuf.internal.type_checkers.UnicodeValueChecker</a></strong>:
+      <em class="summary">Checker used for string fields.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.python_message._ExtensionDict-class.html" onclick="show_private();">protobuf.internal.python_message._ExtensionDict</a></strong>:
+      <em class="summary">Dict-like container for supporting an indexable 
+        &quot;Extensions&quot; field on proto instances.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.well_known_types._FieldMaskTree-class.html" onclick="show_private();">protobuf.internal.well_known_types._FieldMaskTree</a></strong>:
+      <em class="summary">Represents a FieldMask in a tree structure.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.python_message._Listener-class.html" onclick="show_private();">protobuf.internal.python_message._Listener</a></strong>:
+      <em class="summary">MessageListener implementation that a parent message registers with its
+child message.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="protobuf.internal.python_message._OneofListener-class.html" onclick="show_private();">protobuf.internal.python_message._OneofListener</a></strong>:
+      <em class="summary">Special listener implementation for setting composite oneof fields.</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal.reflection_test._MiniDecoder-class.html" onclick="show_private();">protobuf.internal.reflection_test._MiniDecoder</a></strong>:
+      <em class="summary">Decodes a stream of values from a string.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal._parameterized._ParameterizedTestIter-class.html" onclick="show_private();">protobuf.internal._parameterized._ParameterizedTestIter</a></strong>:
+      <em class="summary">Callable and iterable class for producing new test cases.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.json_format._Parser-class.html" onclick="show_private();">protobuf.json_format._Parser</a></strong>:
+      <em class="summary">JSON format parser for protocol message.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.text_format._Parser-class.html" onclick="show_private();">protobuf.text_format._Parser</a></strong>:
+      <em class="summary">Text format parser for protocol message.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.json_format._Printer-class.html" onclick="show_private();">protobuf.json_format._Printer</a></strong>:
+      <em class="summary">JSON format printer for protocol message.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.text_format._Printer-class.html" onclick="show_private();">protobuf.text_format._Printer</a></strong>:
+      <em class="summary">Text format printer for protocol message.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.service_reflection._ServiceBuilder-class.html" onclick="show_private();">protobuf.service_reflection._ServiceBuilder</a></strong>:
+      <em class="summary">This class constructs a protocol service class using a service 
+        descriptor.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.service_reflection._ServiceStubBuilder-class.html" onclick="show_private();">protobuf.service_reflection._ServiceStubBuilder</a></strong>:
+      <em class="summary">Constructs a protocol service stub class using a service 
+        descriptor.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="int-class.html">int</a></strong>:
+      <em class="summary">int(x=0) -&gt; int or long int(x, base=10) -&gt; int or long</em>
+    <ul>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="long-class.html">long</a></strong>:
+      <em class="summary">long(x=0) -&gt; long long(x, base=10) -&gt; long</em>
+    </li>
+    <li> <strong class="uidlink">type</strong>:
+      <em class="summary">type(object) -&gt; the object's type type(name, bases, dict) -&gt; 
+        a new type</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="protobuf.internal.python_message.GeneratedProtocolMessageType-class.html">protobuf.internal.python_message.GeneratedProtocolMessageType</a></strong>:
+      <em class="summary">Metaclass for protocol message classes created at runtime from 
+        Descriptors.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.service_reflection.GeneratedServiceType-class.html">protobuf.service_reflection.GeneratedServiceType</a></strong>:
+      <em class="summary">Metaclass for service classes created at runtime from ServiceDescriptors.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="protobuf.service_reflection.GeneratedServiceStubType-class.html">protobuf.service_reflection.GeneratedServiceStubType</a></strong>:
+      <em class="summary">Metaclass for service stubs created at runtime from 
+        ServiceDescriptors.</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="protobuf.internal._parameterized.TestGeneratorMetaclass-class.html">protobuf.internal._parameterized.TestGeneratorMetaclass</a></strong>:
+      <em class="summary">Metaclass for test cases with test generators.</em>
     </li>
     </ul>
     </li>
@@ -174,6 +473,9 @@
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
   <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="protobuf-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
 
   <!-- Tree link -->
       <th bgcolor="#70b0f0" class="navbar-select"
@@ -193,7 +495,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Wed Dec 21 22:23:06 2016
+    Generated by Epydoc 3.0.1 on Thu Dec 22 11:11:37 2016
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

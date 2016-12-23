@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>protobuf.internal.testing_refleaks</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="protobuf-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="protobuf-module.html">Package&nbsp;protobuf</a> ::
+        <a href="protobuf.internal-module.html">Package&nbsp;internal</a> ::
+        Module&nbsp;testing_refleaks
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="protobuf.internal.testing_refleaks-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="protobuf.internal.testing_refleaks-module.html">Module protobuf.internal.testing_refleaks</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment"># Protocol Buffers - Google's data interchange format</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># Copyright 2008 Google Inc.  All rights reserved.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment"># https://developers.google.com/protocol-buffers/</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># Redistribution and use in source and binary forms, with or without</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># modification, are permitted provided that the following conditions are</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"># met:</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment">#     * Redistributions of source code must retain the above copyright</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"># notice, this list of conditions and the following disclaimer.</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment">#     * Redistributions in binary form must reproduce the above</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"># copyright notice, this list of conditions and the following disclaimer</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># in the documentation and/or other materials provided with the</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment"># distribution.</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-comment">#     * Neither the name of Google Inc. nor the names of its</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-comment"># contributors may be used to endorse or promote products derived from</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-comment"># this software without specific prior written permission.</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-comment">#</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-comment"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-comment"># "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-comment"># LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-comment"># A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-comment"># OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-comment"># SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-comment"># LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-comment"># DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-comment"># THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-comment"># (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt class="py-comment"># OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"><tt class="py-docstring">"""A subclass of unittest.TestCase which checks for reference leaks.</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"><tt class="py-docstring">To use:</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"><tt class="py-docstring">- Use testing_refleak.BaseTestCase instead of unittest.TestCase</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"><tt class="py-docstring">- Configure and compile Python with --with-pydebug</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"><tt class="py-docstring">If sys.gettotalrefcount() is not available (because Python was built without</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"><tt class="py-docstring">the Py_DEBUG option), then this module is a no-op and tests will run normally.</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">gc</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">sys</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line"><tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">  <tt class="py-keyword">import</tt> <tt class="py-name">copy_reg</tt> <tt class="py-keyword">as</tt> <tt class="py-name">copyreg</tt>  <tt class="py-comment">#PY26</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line"><tt class="py-keyword">except</tt> <tt class="py-name">ImportError</tt><tt class="py-op">:</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">  <tt class="py-keyword">import</tt> <tt class="py-name">copyreg</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"><tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">  <tt class="py-keyword">import</tt> <tt class="py-name">unittest2</tt> <tt class="py-keyword">as</tt> <tt class="py-name">unittest</tt>  <tt class="py-comment">#PY26</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"><tt class="py-keyword">except</tt> <tt class="py-name">ImportError</tt><tt class="py-op">:</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">  <tt class="py-keyword">import</tt> <tt class="py-name">unittest</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line"> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line"> </tt>
+<a name="LocalTestResult"></a><div id="LocalTestResult-def"><a name="L55"></a><tt class="py-lineno"> 55</tt> <a class="py-toggle" href="#" id="LocalTestResult-toggle" onclick="return toggle('LocalTestResult');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="protobuf.internal.testing_refleaks.LocalTestResult-class.html">LocalTestResult</a><tt class="py-op">(</tt><tt class="py-base-class">unittest</tt><tt class="py-op">.</tt><tt class="py-base-class">TestResult</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="LocalTestResult-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="LocalTestResult-expanded"><a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">  <tt class="py-docstring">"""A TestResult which forwards events to a parent object, except for Skips."""</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line"> </tt>
+<a name="LocalTestResult.__init__"></a><div id="LocalTestResult.__init__-def"><a name="L58"></a><tt class="py-lineno"> 58</tt> <a class="py-toggle" href="#" id="LocalTestResult.__init__-toggle" onclick="return toggle('LocalTestResult.__init__');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="protobuf.internal.testing_refleaks.LocalTestResult-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">parent_result</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="LocalTestResult.__init__-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="LocalTestResult.__init__-expanded"><a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">    <tt class="py-name">unittest</tt><tt class="py-op">.</tt><tt class="py-name">TestResult</tt><tt class="py-op">.</tt><tt id="link-0" class="py-name" targets="Method protobuf.descriptor.Descriptor.__init__()=protobuf.descriptor.Descriptor-class.html#__init__,Method protobuf.descriptor.DescriptorBase.__init__()=protobuf.descriptor.DescriptorBase-class.html#__init__,Method protobuf.descriptor.EnumDescriptor.__init__()=protobuf.descriptor.EnumDescriptor-class.html#__init__,Method protobuf.descriptor.EnumValueDescriptor.__init__()=protobuf.descriptor.EnumValueDescriptor-class.html#__init__,Method protobuf.descriptor.FieldDescriptor.__init__()=protobuf.descriptor.FieldDescriptor-class.html#__init__,Method protobuf.descriptor.FileDescriptor.__init__()=protobuf.descriptor.FileDescriptor-class.html#__init__,Method protobuf.descriptor.MethodDescriptor.__init__()=protobuf.descriptor.MethodDescriptor-class.html#__init__,Method protobuf.descriptor.OneofDescriptor.__init__()=protobuf.descriptor.OneofDescriptor-class.html#__init__,Method protobuf.descriptor.ServiceDescriptor.__init__()=protobuf.descriptor.ServiceDescriptor-class.html#__init__,Method protobuf.descriptor._NestedDescriptorBase.__init__()=protobuf.descriptor._NestedDescriptorBase-class.html#__init__,Method protobuf.descriptor_database.DescriptorDatabase.__init__()=protobuf.descriptor_database.DescriptorDatabase-class.html#__init__,Method protobuf.descriptor_pool.DescriptorPool.__init__()=protobuf.descriptor_pool.DescriptorPool-class.html#__init__,Method protobuf.internal._parameterized._ParameterizedTestIter.__init__()=protobuf.internal._parameterized._ParameterizedTestIter-class.html#__init__,Method protobuf.internal.containers.BaseContainer.__init__()=protobuf.internal.containers.BaseContainer-class.html#__init__,Method protobuf.internal.containers.MessageMap.__init__()=protobuf.internal.containers.MessageMap-class.html#__init__,Method protobuf.internal.containers.RepeatedCompositeFieldContainer.__init__()=protobuf.internal.containers.RepeatedCompositeFieldContainer-class.html#__init__,Method protobuf.internal.containers.RepeatedScalarFieldContainer.__init__()=protobuf.internal.containers.RepeatedScalarFieldContainer-class.html#__init__,Method protobuf.internal.containers.ScalarMap.__init__()=protobuf.internal.containers.ScalarMap-class.html#__init__,Method protobuf.internal.descriptor_pool_test.EnumField.__init__()=protobuf.internal.descriptor_pool_test.EnumField-class.html#__init__,Method protobuf.internal.descriptor_pool_test.EnumType.__init__()=protobuf.internal.descriptor_pool_test.EnumType-class.html#__init__,Method protobuf.internal.descriptor_pool_test.ExtensionField.__init__()=protobuf.internal.descriptor_pool_test.ExtensionField-class.html#__init__,Method protobuf.internal.descriptor_pool_test.MessageField.__init__()=protobuf.internal.descriptor_pool_test.MessageField-class.html#__init__,Method protobuf.internal.descriptor_pool_test.MessageType.__init__()=protobuf.internal.descriptor_pool_test.MessageType-class.html#__init__,Method protobuf.internal.descriptor_pool_test.ProtoFile.__init__()=protobuf.internal.descriptor_pool_test.ProtoFile-class.html#__init__,Method protobuf.internal.descriptor_pool_test.StringField.__init__()=protobuf.internal.descriptor_pool_test.StringField-class.html#__init__,Method protobuf.internal.enum_type_wrapper.EnumTypeWrapper.__init__()=protobuf.internal.enum_type_wrapper.EnumTypeWrapper-class.html#__init__,Method protobuf.internal.message_test.MessageTest.TestIterable.__init__()=protobuf.internal.message_test.MessageTest.TestIterable-class.html#__init__,Method protobuf.internal.python_message.GeneratedProtocolMessageType.__init__()=protobuf.internal.python_message.GeneratedProtocolMessageType-class.html#__init__,Method protobuf.internal.python_message._ExtensionDict.__init__()=protobuf.internal.python_message._ExtensionDict-class.html#__init__,Method protobuf.internal.python_message._Listener.__init__()=protobuf.internal.python_message._Listener-class.html#__init__,Method protobuf.internal.python_message._OneofListener.__init__()=protobuf.internal.python_message._OneofListener-class.html#__init__,Method protobuf.internal.reflection_test._MiniDecoder.__init__()=protobuf.internal.reflection_test._MiniDecoder-class.html#__init__,Method protobuf.internal.testing_refleaks.LocalTestResult.__init__()=protobuf.internal.testing_refleaks.LocalTestResult-class.html#__init__,Method protobuf.internal.type_checkers.EnumValueChecker.__init__()=protobuf.internal.type_checkers.EnumValueChecker-class.html#__init__,Method protobuf.internal.type_checkers.TypeChecker.__init__()=protobuf.internal.type_checkers.TypeChecker-class.html#__init__,Method protobuf.internal.type_checkers.TypeCheckerWithDefault.__init__()=protobuf.internal.type_checkers.TypeCheckerWithDefault-class.html#__init__,Method protobuf.internal.well_known_types._FieldMaskTree.__init__()=protobuf.internal.well_known_types._FieldMaskTree-class.html#__init__,Method protobuf.json_format._Parser.__init__()=protobuf.json_format._Parser-class.html#__init__,Method protobuf.json_format._Printer.__init__()=protobuf.json_format._Printer-class.html#__init__,Method protobuf.message_factory.MessageFactory.__init__()=protobuf.message_factory.MessageFactory-class.html#__init__,Method protobuf.service_reflection.GeneratedServiceStubType.__init__()=protobuf.service_reflection.GeneratedServiceStubType-class.html#__init__,Method protobuf.service_reflection.GeneratedServiceType.__init__()=protobuf.service_reflection.GeneratedServiceType-class.html#__init__,Method protobuf.service_reflection._ServiceBuilder.__init__()=protobuf.service_reflection._ServiceBuilder-class.html#__init__,Method protobuf.service_reflection._ServiceStubBuilder.__init__()=protobuf.service_reflection._ServiceStubBuilder-class.html#__init__,Method protobuf.text_format.ParseError.__init__()=protobuf.text_format.ParseError-class.html#__init__,Method protobuf.text_format.TextWriter.__init__()=protobuf.text_format.TextWriter-class.html#__init__,Method protobuf.text_format.Tokenizer.__init__()=protobuf.text_format.Tokenizer-class.html#__init__,Method protobuf.text_format._Parser.__init__()=protobuf.text_format._Parser-class.html#__init__,Method protobuf.text_format._Printer.__init__()=protobuf.text_format._Printer-class.html#__init__"><a title="protobuf.descriptor.Descriptor.__init__
+protobuf.descriptor.DescriptorBase.__init__
+protobuf.descriptor.EnumDescriptor.__init__
+protobuf.descriptor.EnumValueDescriptor.__init__
+protobuf.descriptor.FieldDescriptor.__init__
+protobuf.descriptor.FileDescriptor.__init__
+protobuf.descriptor.MethodDescriptor.__init__
+protobuf.descriptor.OneofDescriptor.__init__
+protobuf.descriptor.ServiceDescriptor.__init__
+protobuf.descriptor._NestedDescriptorBase.__init__
+protobuf.descriptor_database.DescriptorDatabase.__init__
+protobuf.descriptor_pool.DescriptorPool.__init__
+protobuf.internal._parameterized._ParameterizedTestIter.__init__
+protobuf.internal.containers.BaseContainer.__init__
+protobuf.internal.containers.MessageMap.__init__
+protobuf.internal.containers.RepeatedCompositeFieldContainer.__init__
+protobuf.internal.containers.RepeatedScalarFieldContainer.__init__
+protobuf.internal.containers.ScalarMap.__init__
+protobuf.internal.descriptor_pool_test.EnumField.__init__
+protobuf.internal.descriptor_pool_test.EnumType.__init__
+protobuf.internal.descriptor_pool_test.ExtensionField.__init__
+protobuf.internal.descriptor_pool_test.MessageField.__init__
+protobuf.internal.descriptor_pool_test.MessageType.__init__
+protobuf.internal.descriptor_pool_test.ProtoFile.__init__
+protobuf.internal.descriptor_pool_test.StringField.__init__
+protobuf.internal.enum_type_wrapper.EnumTypeWrapper.__init__
+protobuf.internal.message_test.MessageTest.TestIterable.__init__
+protobuf.internal.python_message.GeneratedProtocolMessageType.__init__
+protobuf.internal.python_message._ExtensionDict.__init__
+protobuf.internal.python_message._Listener.__init__
+protobuf.internal.python_message._OneofListener.__init__
+protobuf.internal.reflection_test._MiniDecoder.__init__
+protobuf.internal.testing_refleaks.LocalTestResult.__init__
+protobuf.internal.type_checkers.EnumValueChecker.__init__
+protobuf.internal.type_checkers.TypeChecker.__init__
+protobuf.internal.type_checkers.TypeCheckerWithDefault.__init__
+protobuf.internal.well_known_types._FieldMaskTree.__init__
+protobuf.json_format._Parser.__init__
+protobuf.json_format._Printer.__init__
+protobuf.message_factory.MessageFactory.__init__
+protobuf.service_reflection.GeneratedServiceStubType.__init__
+protobuf.service_reflection.GeneratedServiceType.__init__
+protobuf.service_reflection._ServiceBuilder.__init__
+protobuf.service_reflection._ServiceStubBuilder.__init__
+protobuf.text_format.ParseError.__init__
+protobuf.text_format.TextWriter.__init__
+protobuf.text_format.Tokenizer.__init__
+protobuf.text_format._Parser.__init__
+protobuf.text_format._Printer.__init__" class="py-name" href="#" onclick="return doclink('link-0', '__init__', 'link-0');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parent_result</tt> <tt class="py-op">=</tt> <tt class="py-name">parent_result</tt> </tt>
+</div><a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line"> </tt>
+<a name="LocalTestResult.addError"></a><div id="LocalTestResult.addError-def"><a name="L62"></a><tt class="py-lineno"> 62</tt> <a class="py-toggle" href="#" id="LocalTestResult.addError-toggle" onclick="return toggle('LocalTestResult.addError');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="protobuf.internal.testing_refleaks.LocalTestResult-class.html#addError">addError</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">test</tt><tt class="py-op">,</tt> <tt class="py-param">error</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="LocalTestResult.addError-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="LocalTestResult.addError-expanded"><a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parent_result</tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Method protobuf.internal.testing_refleaks.LocalTestResult.addError()=protobuf.internal.testing_refleaks.LocalTestResult-class.html#addError"><a title="protobuf.internal.testing_refleaks.LocalTestResult.addError" class="py-name" href="#" onclick="return doclink('link-1', 'addError', 'link-1');">addError</a></tt><tt class="py-op">(</tt><tt class="py-name">test</tt><tt class="py-op">,</tt> <tt class="py-name">error</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line"> </tt>
+<a name="LocalTestResult.addFailure"></a><div id="LocalTestResult.addFailure-def"><a name="L65"></a><tt class="py-lineno"> 65</tt> <a class="py-toggle" href="#" id="LocalTestResult.addFailure-toggle" onclick="return toggle('LocalTestResult.addFailure');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="protobuf.internal.testing_refleaks.LocalTestResult-class.html#addFailure">addFailure</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">test</tt><tt class="py-op">,</tt> <tt class="py-param">error</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="LocalTestResult.addFailure-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="LocalTestResult.addFailure-expanded"><a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">parent_result</tt><tt class="py-op">.</tt><tt id="link-2" class="py-name" targets="Method protobuf.internal.testing_refleaks.LocalTestResult.addFailure()=protobuf.internal.testing_refleaks.LocalTestResult-class.html#addFailure"><a title="protobuf.internal.testing_refleaks.LocalTestResult.addFailure" class="py-name" href="#" onclick="return doclink('link-2', 'addFailure', 'link-2');">addFailure</a></tt><tt class="py-op">(</tt><tt class="py-name">test</tt><tt class="py-op">,</tt> <tt class="py-name">error</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line"> </tt>
+<a name="LocalTestResult.addSkip"></a><div id="LocalTestResult.addSkip-def"><a name="L68"></a><tt class="py-lineno"> 68</tt> <a class="py-toggle" href="#" id="LocalTestResult.addSkip-toggle" onclick="return toggle('LocalTestResult.addSkip');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="protobuf.internal.testing_refleaks.LocalTestResult-class.html#addSkip">addSkip</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">test</tt><tt class="py-op">,</tt> <tt class="py-param">reason</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="LocalTestResult.addSkip-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="LocalTestResult.addSkip-expanded"><a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">    <tt class="py-keyword">pass</tt> </tt>
+</div></div><a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line"> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line"> </tt>
+<a name="ReferenceLeakCheckerTestCase"></a><div id="ReferenceLeakCheckerTestCase-def"><a name="L72"></a><tt class="py-lineno"> 72</tt> <a class="py-toggle" href="#" id="ReferenceLeakCheckerTestCase-toggle" onclick="return toggle('ReferenceLeakCheckerTestCase');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="protobuf.internal.testing_refleaks.ReferenceLeakCheckerTestCase-class.html">ReferenceLeakCheckerTestCase</a><tt class="py-op">(</tt><tt class="py-base-class">unittest</tt><tt class="py-op">.</tt><tt class="py-base-class">TestCase</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ReferenceLeakCheckerTestCase-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="ReferenceLeakCheckerTestCase-expanded"><a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">  <tt class="py-docstring">"""A TestCase which runs tests multiple times, collecting reference counts."""</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line"> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">  <tt id="link-3" class="py-name" targets="Variable protobuf.internal.testing_refleaks.ReferenceLeakCheckerTestCase.NB_RUNS=protobuf.internal.testing_refleaks.ReferenceLeakCheckerTestCase-class.html#NB_RUNS"><a title="protobuf.internal.testing_refleaks.ReferenceLeakCheckerTestCase.NB_RUNS" class="py-name" href="#" onclick="return doclink('link-3', 'NB_RUNS', 'link-3');">NB_RUNS</a></tt> <tt class="py-op">=</tt> <tt class="py-number">3</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line"> </tt>
+<a name="ReferenceLeakCheckerTestCase.run"></a><div id="ReferenceLeakCheckerTestCase.run-def"><a name="L77"></a><tt class="py-lineno"> 77</tt> <a class="py-toggle" href="#" id="ReferenceLeakCheckerTestCase.run-toggle" onclick="return toggle('ReferenceLeakCheckerTestCase.run');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="protobuf.internal.testing_refleaks.ReferenceLeakCheckerTestCase-class.html#run">run</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">result</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ReferenceLeakCheckerTestCase.run-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="ReferenceLeakCheckerTestCase.run-expanded"><a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">    <tt class="py-comment"># python_message.py registers all Message classes to some pickle global</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">    <tt class="py-comment"># registry, which makes the classes immortal.</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">    <tt class="py-comment"># We save a copy of this registry, and reset it before we could references.</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_saved_pickle_registry</tt> <tt class="py-op">=</tt> <tt class="py-name">copyreg</tt><tt class="py-op">.</tt><tt class="py-name">dispatch_table</tt><tt class="py-op">.</tt><tt class="py-name">copy</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line"> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">    <tt class="py-comment"># Run the test twice, to warm up the instance attributes.</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">    <tt class="py-name">super</tt><tt class="py-op">(</tt><tt id="link-4" class="py-name" targets="Class protobuf.internal.testing_refleaks.ReferenceLeakCheckerTestCase=protobuf.internal.testing_refleaks.ReferenceLeakCheckerTestCase-class.html"><a title="protobuf.internal.testing_refleaks.ReferenceLeakCheckerTestCase" class="py-name" href="#" onclick="return doclink('link-4', 'ReferenceLeakCheckerTestCase', 'link-4');">ReferenceLeakCheckerTestCase</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Method protobuf.internal.testing_refleaks.ReferenceLeakCheckerTestCase.run()=protobuf.internal.testing_refleaks.ReferenceLeakCheckerTestCase-class.html#run"><a title="protobuf.internal.testing_refleaks.ReferenceLeakCheckerTestCase.run" class="py-name" href="#" onclick="return doclink('link-5', 'run', 'link-5');">run</a></tt><tt class="py-op">(</tt><tt class="py-name">result</tt><tt class="py-op">=</tt><tt class="py-name">result</tt><tt class="py-op">)</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">    <tt class="py-name">super</tt><tt class="py-op">(</tt><tt id="link-6" class="py-name"><a title="protobuf.internal.testing_refleaks.ReferenceLeakCheckerTestCase" class="py-name" href="#" onclick="return doclink('link-6', 'ReferenceLeakCheckerTestCase', 'link-4');">ReferenceLeakCheckerTestCase</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name"><a title="protobuf.internal.testing_refleaks.ReferenceLeakCheckerTestCase.run" class="py-name" href="#" onclick="return doclink('link-7', 'run', 'link-5');">run</a></tt><tt class="py-op">(</tt><tt class="py-name">result</tt><tt class="py-op">=</tt><tt class="py-name">result</tt><tt class="py-op">)</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line"> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">    <tt class="py-name">oldrefcount</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">    <tt class="py-name">local_result</tt> <tt class="py-op">=</tt> <tt id="link-8" class="py-name" targets="Class protobuf.internal.testing_refleaks.LocalTestResult=protobuf.internal.testing_refleaks.LocalTestResult-class.html"><a title="protobuf.internal.testing_refleaks.LocalTestResult" class="py-name" href="#" onclick="return doclink('link-8', 'LocalTestResult', 'link-8');">LocalTestResult</a></tt><tt class="py-op">(</tt><tt class="py-name">result</tt><tt class="py-op">)</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line"> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">    <tt class="py-name">refcount_deltas</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">_</tt> <tt class="py-keyword">in</tt> <tt class="py-name">range</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-9" class="py-name"><a title="protobuf.internal.testing_refleaks.ReferenceLeakCheckerTestCase.NB_RUNS" class="py-name" href="#" onclick="return doclink('link-9', 'NB_RUNS', 'link-3');">NB_RUNS</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">      <tt class="py-name">oldrefcount</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Method protobuf.internal.testing_refleaks.ReferenceLeakCheckerTestCase._getRefcounts()=protobuf.internal.testing_refleaks.ReferenceLeakCheckerTestCase-class.html#_getRefcounts"><a title="protobuf.internal.testing_refleaks.ReferenceLeakCheckerTestCase._getRefcounts" class="py-name" href="#" onclick="return doclink('link-10', '_getRefcounts', 'link-10');">_getRefcounts</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">      <tt class="py-name">super</tt><tt class="py-op">(</tt><tt id="link-11" class="py-name"><a title="protobuf.internal.testing_refleaks.ReferenceLeakCheckerTestCase" class="py-name" href="#" onclick="return doclink('link-11', 'ReferenceLeakCheckerTestCase', 'link-4');">ReferenceLeakCheckerTestCase</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name"><a title="protobuf.internal.testing_refleaks.ReferenceLeakCheckerTestCase.run" class="py-name" href="#" onclick="return doclink('link-12', 'run', 'link-5');">run</a></tt><tt class="py-op">(</tt><tt class="py-name">result</tt><tt class="py-op">=</tt><tt class="py-name">local_result</tt><tt class="py-op">)</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">      <tt class="py-name">newrefcount</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name"><a title="protobuf.internal.testing_refleaks.ReferenceLeakCheckerTestCase._getRefcounts" class="py-name" href="#" onclick="return doclink('link-13', '_getRefcounts', 'link-10');">_getRefcounts</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">      <tt class="py-name">refcount_deltas</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name" targets="Method protobuf.internal.containers.RepeatedScalarFieldContainer.append()=protobuf.internal.containers.RepeatedScalarFieldContainer-class.html#append,Method protobuf.internal.well_known_types.ListValue.append()=protobuf.internal.well_known_types.ListValue-class.html#append"><a title="protobuf.internal.containers.RepeatedScalarFieldContainer.append
+protobuf.internal.well_known_types.ListValue.append" class="py-name" href="#" onclick="return doclink('link-14', 'append', 'link-14');">append</a></tt><tt class="py-op">(</tt><tt class="py-name">newrefcount</tt> <tt class="py-op">-</tt> <tt class="py-name">oldrefcount</tt><tt class="py-op">)</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">    <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-name">refcount_deltas</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line"> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">      <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">assertEqual</tt><tt class="py-op">(</tt><tt class="py-name">refcount_deltas</tt><tt class="py-op">,</tt> <tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">*</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name"><a title="protobuf.internal.testing_refleaks.ReferenceLeakCheckerTestCase.NB_RUNS" class="py-name" href="#" onclick="return doclink('link-15', 'NB_RUNS', 'link-3');">NB_RUNS</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt class="py-name">Exception</tt><tt class="py-op">:</tt>  <tt class="py-comment"># pylint: disable=broad-except</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">      <tt class="py-name">result</tt><tt class="py-op">.</tt><tt id="link-16" class="py-name"><a title="protobuf.internal.testing_refleaks.LocalTestResult.addError" class="py-name" href="#" onclick="return doclink('link-16', 'addError', 'link-1');">addError</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">exc_info</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line"> </tt>
+<a name="ReferenceLeakCheckerTestCase._getRefcounts"></a><div id="ReferenceLeakCheckerTestCase._getRefcounts-def"><a name="L103"></a><tt class="py-lineno">103</tt> <a class="py-toggle" href="#" id="ReferenceLeakCheckerTestCase._getRefcounts-toggle" onclick="return toggle('ReferenceLeakCheckerTestCase._getRefcounts');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="protobuf.internal.testing_refleaks.ReferenceLeakCheckerTestCase-class.html#_getRefcounts">_getRefcounts</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ReferenceLeakCheckerTestCase._getRefcounts-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="ReferenceLeakCheckerTestCase._getRefcounts-expanded"><a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">    <tt class="py-name">copyreg</tt><tt class="py-op">.</tt><tt class="py-name">dispatch_table</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name" targets="Method protobuf.internal.containers.MessageMap.clear()=protobuf.internal.containers.MessageMap-class.html#clear,Method protobuf.internal.containers.MutableMapping.clear()=protobuf.internal.containers.MutableMapping-class.html#clear,Method protobuf.internal.containers.ScalarMap.clear()=protobuf.internal.containers.ScalarMap-class.html#clear"><a title="protobuf.internal.containers.MessageMap.clear
+protobuf.internal.containers.MutableMapping.clear
+protobuf.internal.containers.ScalarMap.clear" class="py-name" href="#" onclick="return doclink('link-17', 'clear', 'link-17');">clear</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">    <tt class="py-name">copyreg</tt><tt class="py-op">.</tt><tt class="py-name">dispatch_table</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name" targets="Method protobuf.internal.containers.MutableMapping.update()=protobuf.internal.containers.MutableMapping-class.html#update"><a title="protobuf.internal.containers.MutableMapping.update" class="py-name" href="#" onclick="return doclink('link-18', 'update', 'link-18');">update</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_saved_pickle_registry</tt><tt class="py-op">)</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">    <tt class="py-comment"># It is sometimes necessary to gc.collect() multiple times, to ensure</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">    <tt class="py-comment"># that all objects can be collected.</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">    <tt class="py-name">gc</tt><tt class="py-op">.</tt><tt class="py-name">collect</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">    <tt class="py-name">gc</tt><tt class="py-op">.</tt><tt class="py-name">collect</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">    <tt class="py-name">gc</tt><tt class="py-op">.</tt><tt class="py-name">collect</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">gettotalrefcount</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line"> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line"> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-name">hasattr</tt><tt class="py-op">(</tt><tt class="py-name">sys</tt><tt class="py-op">,</tt> <tt class="py-string">'gettotalrefcount'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">  <tt id="link-19" class="py-name" targets="Variable protobuf.internal.reflection_test.BaseTestCase=protobuf.internal.reflection_test-module.html#BaseTestCase,Variable protobuf.internal.unknown_fields_test.BaseTestCase=protobuf.internal.unknown_fields_test-module.html#BaseTestCase"><a title="protobuf.internal.reflection_test.BaseTestCase
+protobuf.internal.unknown_fields_test.BaseTestCase" class="py-name" href="#" onclick="return doclink('link-19', 'BaseTestCase', 'link-19');">BaseTestCase</a></tt> <tt class="py-op">=</tt> <tt id="link-20" class="py-name"><a title="protobuf.internal.testing_refleaks.ReferenceLeakCheckerTestCase" class="py-name" href="#" onclick="return doclink('link-20', 'ReferenceLeakCheckerTestCase', 'link-4');">ReferenceLeakCheckerTestCase</a></tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">  <tt id="link-21" class="py-name" targets="Function protobuf.internal.testing_refleaks.SkipReferenceLeakChecker()=protobuf.internal.testing_refleaks-module.html#SkipReferenceLeakChecker"><a title="protobuf.internal.testing_refleaks.SkipReferenceLeakChecker" class="py-name" href="#" onclick="return doclink('link-21', 'SkipReferenceLeakChecker', 'link-21');">SkipReferenceLeakChecker</a></tt> <tt class="py-op">=</tt> <tt class="py-name">unittest</tt><tt class="py-op">.</tt><tt class="py-name">skip</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line"> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line"><tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">  <tt class="py-comment"># When PyDEBUG is not enabled, run the tests normally.</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">  <tt id="link-22" class="py-name"><a title="protobuf.internal.reflection_test.BaseTestCase
+protobuf.internal.unknown_fields_test.BaseTestCase" class="py-name" href="#" onclick="return doclink('link-22', 'BaseTestCase', 'link-19');">BaseTestCase</a></tt> <tt class="py-op">=</tt> <tt class="py-name">unittest</tt><tt class="py-op">.</tt><tt class="py-name">TestCase</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line"> </tt>
+<a name="SkipReferenceLeakChecker"></a><div id="SkipReferenceLeakChecker-def"><a name="L122"></a><tt class="py-lineno">122</tt> <a class="py-toggle" href="#" id="SkipReferenceLeakChecker-toggle" onclick="return toggle('SkipReferenceLeakChecker');">-</a><tt class="py-line">  <tt class="py-keyword">def</tt> <a class="py-def-name" href="protobuf.internal.testing_refleaks-module.html#SkipReferenceLeakChecker">SkipReferenceLeakChecker</a><tt class="py-op">(</tt><tt class="py-param">reason</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SkipReferenceLeakChecker-collapsed" style="display:none;" pad="+++" indent="++++++"></div><div id="SkipReferenceLeakChecker-expanded"><a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">    <tt class="py-keyword">del</tt> <tt class="py-name">reason</tt>  <tt class="py-comment"># Don't skip, so don't need a reason.</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">    <tt class="py-keyword">def</tt> <tt class="py-def-name">Same</tt><tt class="py-op">(</tt><tt class="py-param">func</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">      <tt class="py-keyword">return</tt> <tt class="py-name">func</tt> </tt>
+</div><a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">Same</tt> </tt>
+</div><a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="protobuf-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Thu Dec 22 11:11:40 2016
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

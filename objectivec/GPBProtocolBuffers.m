@@ -56,6 +56,7 @@
 
 #import "google/protobuf/Any.pbobjc.m"
 #import "google/protobuf/Api.pbobjc.m"
+#import "google/protobuf/Descriptor.pbobjc.m"
 #import "google/protobuf/Duration.pbobjc.m"
 #import "google/protobuf/Empty.pbobjc.m"
 #import "google/protobuf/FieldMask.pbobjc.m"

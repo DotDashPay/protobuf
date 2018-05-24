@@ -9,7 +9,7 @@ set -e
 if [ ! -z "$@" ]; then
   for argument in "$@"; do
     case $argument in
-	  # make curl silent
+          # make curl silent
       "-s")
         curlopts="-s"
         ;;
@@ -35,7 +35,9 @@ if test ! -e gmock; then
   unzip -q release-1.7.0.zip
   rm release-1.7.0.zip
   mv googlemock-release-1.7.0 gmock
+fi
 
+if test ! -e gmock/gtest; then
   curl $curlopts -L -O https://github.com/google/googletest/archive/release-1.7.0.zip
   unzip -q release-1.7.0.zip
   rm release-1.7.0.zip
